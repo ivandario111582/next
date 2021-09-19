@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:next_project/utils/utils.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:next_project/ui/input_decorations.dart';
 import 'package:next_project/widgets/widgets.dart';
 import 'package:next_project/services/services.dart';
-
+import 'package:flutter/services.dart';
 class ConfigScreen extends StatefulWidget {
   @override
   _ConfigScreenState createState() => _ConfigScreenState();
@@ -15,7 +14,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
   String portServer ='';
   bool validURL     =false;
   String user       ='';
-  final storage = new FlutterSecureStorage();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,25 +119,18 @@ class _ConfigScreenState extends State<ConfigScreen> {
                   ),
                   onPressed:()=>{
                     validURL = Uri.parse(urlServer).isAbsolute,
-                   
                     if(validURL){
-
-                      //Config.login(urlServer,portServer).then((_) {}),
-                      writeURl(urlServer,portServer,user),
-                      Navigator.pushReplacementNamed(context, 'login')
+                      Config.configura(urlServer,portServer,user).then((_) {}),
+                      Navigator.pushReplacementNamed(context, 'checking')
+                     // SystemNavigator.pop()
                     }else{
                       NotificationsService.showSnackBar('La dirección URL no es válida')
                     }
-                    
                   }
                         ),
             );
   }
-  void writeURl(String url,String port,String user)async{
-     await storage.write(key: 'url', value: url);
-     await storage.write(key: 'port', value: port);
-     await storage.write(key: 'user', value: user);
-  }
+  
 }
 
 

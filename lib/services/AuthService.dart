@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -9,12 +8,14 @@ import 'package:next_project/utils/utils.dart';
 class AuthService extends ChangeNotifier {
   //final String _baseUrl = UrlServices.urlLogin;
   bool validURL=false;
-  final storage = new FlutterSecureStorage();
+  
 
   Future<String?> login(String email, String password) async {
     // Read value 
     print(email);
-    String  urlServer = await storage.read(key: 'url') ?? '';
+    //String  urlServer = await storage.read(key: 'url') ?? '';
+    String urlServer=(Config.urlServer!='') ? Config.urlServer:'';
+    //String  urlServer = await storage.read(key: 'url') ?? '';
     String urlWebservive = urlServer   + UrlServices.urlLogin + email + "&clave=" + password;
     validURL = Uri.parse(urlWebservive).isAbsolute;
 
@@ -39,14 +40,12 @@ class AuthService extends ChangeNotifier {
     try{
       final Map<String, dynamic> decodeResp = json.decode(resp.body);
       if (decodeResp['acceso'] == true) {
-        //almacenado para controlar secure storage
-        await storage.write(key: 'token', value: decodeResp['token']);
-        await storage.write(key: 'name', value: decodeResp['name']);
-        await storage.write(key: 'direcc', value: decodeResp['direcc']);
-        await storage.write(key: 'tele', value: decodeResp['tele']);
+        String nombre= decodeResp['name'] ;
         //almaceno en shared preferences
-        User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'])
-            .then((_) {});
+        User.login(nombre, decodeResp['direcc'], decodeResp['tele'],decodeResp['token'])
+            .then((_) {
+              Utility.showToast('Bienvenido $nombre');
+            });
         //TODO: aui se deberia almacenar el user id para las consultas
         return null;
       } else {
@@ -60,12 +59,14 @@ class AuthService extends ChangeNotifier {
   }
 
   // para cerrar aplicación
-  Future logout() async {
+  //TODO: VEN ACA
+  /*Future logout() async {
     await storage.delete(key: 'token');
+  }*/
+  //para comprobar si el tocket existe
+  
+  Future<String> readToken() async {
+    return ''; // await storage.read(key: 'token') ?? '';
   }
 
-  //para comprobar si el tocket existe
-  Future<String> readToken() async {
-    return await storage.read(key: 'token') ?? '';
-  }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'package:next_project/providers/login_form_provider.dart';
@@ -58,7 +57,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final storage = new FlutterSecureStorage();
   TextEditingController _controller = new TextEditingController();
   String user='';
   @override
@@ -143,7 +141,7 @@ class _LoginFormState extends State<LoginForm> {
                           final String? errorMessage = await authService.login(
                               loginForm.email, loginForm.password);
                           if (errorMessage == null) {
-                            Navigator.pushReplacementNamed(context, 'home');
+                            Navigator.pushReplacementNamed(context, 'checking');
                           } else {
                             NotificationsService.showSnackBar(errorMessage);
                             loginForm.isLoading = false;
@@ -157,7 +155,9 @@ class _LoginFormState extends State<LoginForm> {
   }
   //lectura del usuario almacanado en secure storge y colocado el valor en el text del usuario este es que se deberia mostrar en la pantalla
   void readUsert() async {
-    String userLocal=await storage.read(key: 'user') ?? '';
+    //String userLocal=await storage.read(key: 'user') ?? '';
+    String userLocal=(Config.user!='') ? Config.user:'';
+    print(userLocal);
     setState(() {
        _controller.text = userLocal;
     });
