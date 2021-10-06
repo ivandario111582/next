@@ -5,5 +5,5 @@ class UrlServices {
   //static String host='http://192.168.100.6/miIglesia/wp-content/themes/baskerville/scripts/json/';
   //static String host=Config.urlServer;
   //static String urlLogin = host + 'loginNext.php?usuario=';
-  static String urlLogin = 'loginNext.php?usuario=';
+  static String urlLogin = '/api/login/login';
 }

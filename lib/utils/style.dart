@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:next_project/utils/utils.dart';
-//import 'package:next_project/services/services.dart';
-//import 'package:provider/provider.dart';
+import 'package:next_project/screens/screens.dart';
 
 class StyleApp{
     static getAppBarSimple(BuildContext context){
@@ -16,7 +15,10 @@ class StyleApp{
               onPressed: () {
                 User.logout();
                 //llamada a la pantalla de inicio
-                Navigator.pushReplacementNamed(context, 'login');
+                Navigator.pushReplacement(context, PageRouteBuilder(
+                  pageBuilder: (_, __, ___)=>CheckAuthScreen(storage: CounterStorage()),
+                  transitionDuration: Duration( seconds: 0)
+                ));
               },
             ),
         ]

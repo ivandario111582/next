@@ -6,15 +6,16 @@ import 'package:next_project/services/services.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/ui/input_decorations.dart';
 import 'package:next_project/widgets/widgets.dart';
+import 'package:next_project/screens/screens.dart';
 
 //class LoginScreen extends StatelessWidget {
-  class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-     @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
@@ -23,46 +24,77 @@ class _LoginScreenState extends State<LoginScreen> {
             title: new Text("Next ERP")),
         body: AuthBackground(
             child: SingleChildScrollView(
-              child: Column(
+          child: Column(
+            children: [
+              SizedBox(height: 250),
+              Column(
                 children: [
-                  SizedBox(height: 250),
-                  Column(
-                    children: [
-                      SizedBox(height: 30),
-                      ChangeNotifierProvider(
-                          create: (_) => LoginFormProvider(), child: LoginForm())
-                    ],
-                  )
+                  SizedBox(height: 30),
+                  ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(), child: LoginForm(storage: CounterStorage()))
                 ],
-              ),
-            )
+              )
+            ],
           ),
+        )),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color(Constants.colorBlue),
           child: Icon(Icons.settings),
-          onPressed:() {
-            Navigator.pushNamed(context, 'configForm');
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (_, __, ___) =>
+                        ConfigScreen(storage: CounterStorage()),
+                    transitionDuration: Duration(seconds: 0)));
           },
-        )
-        );
+        ));
   }
-
-
 }
 
-//class _LoginForm extends StatelessWidget   {
 class LoginForm extends StatefulWidget {
+  final CounterStorage storage;
+  LoginForm({Key? key, required this.storage}) : super(key: key);
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
+  String _dataDisp = '';
+  String _counter = '0';
+  String urlServer = '';
+  String portServer = '';
   TextEditingController _controller = new TextEditingController();
-  String user='';
+  String user = '';
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    readUsert();
+    try {
+      widget.storage.readCounter().then((String value) {
+        setState(() {
+          _dataDisp = value;
+        });
+        //retorna como 0 en el caso que es primer logeo o se presiono cerrar sesión para ir directamente a la pantalla de login
+        if (_dataDisp == '0') {
+          setState(() {
+            _counter = '0';
+          });
+        } else {
+          //siginifica que ya ha ingresado antes, divide la cadena recueprada para tomar id del usuario y verificar el estado del usuario
+          var arrayData = _dataDisp.split('@');
+          setState(() {
+            urlServer = arrayData[0]+':'+arrayData[1];
+            user = arrayData[2];
+          });
+        }
+        //llama a la funcion que verifica el estado de usuario y la versión de la app
+        //  _check(userId);
+        readUsert(user);
+      });
+    } catch (Ex) {
+      print('Something really unknown: $Ex');
+    }
   }
 
   @override
@@ -75,33 +107,26 @@ class _LoginFormState extends State<LoginForm> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
-                        Container(
-              decoration: BoxDecoration(
-                color:Constants.whitOpacity,
-                borderRadius: BorderRadius.circular(30)
-              ),
-              child:
-
-            TextFormField(
-              readOnly: true,
-              autocorrect: false,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'usuario',
-                   prefixIcon: Icons.account_circle
-                  ),
-              //initialValue: user,
-              controller: _controller,
-              onChanged: (value) => loginForm.email = value,
-              style: TextStyle(color: Colors.white),
-            )
-            ),
+            Container(
+                decoration: BoxDecoration(
+                    color: Constants.whitOpacity,
+                    borderRadius: BorderRadius.circular(30)),
+                child: TextFormField(
+                  readOnly: true,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'usuario', prefixIcon: Icons.account_circle),
+                  //initialValue: user,
+                  controller: _controller,
+                  onChanged: (value) => loginForm.email = value,
+                  style: TextStyle(color: Colors.white),
+                )),
             SizedBox(height: 30),
             Container(
               decoration: BoxDecoration(
-                color:Constants.whitOpacity,
-                borderRadius: BorderRadius.circular(30)
-              ),
+                  color: Constants.whitOpacity,
+                  borderRadius: BorderRadius.circular(30)),
               child: TextFormField(
                 autocorrect: false,
                 obscureText: true,
@@ -132,16 +157,25 @@ class _LoginFormState extends State<LoginForm> {
                   onPressed: loginForm.isLoading
                       ? null
                       : () async {
+                          //String userLocal =(Config.user != '') ? Config.user : '';
                           FocusScope.of(context).unfocus();
                           final authService =
                               Provider.of<AuthService>(context, listen: false);
                           if (!loginForm.isValidForm()) return;
                           loginForm.isLoading = true;
-                          loginForm.email=_controller.text;
-                          final String? errorMessage = await authService.login(
-                              loginForm.email, loginForm.password);
-                          if (errorMessage == null) {
-                            Navigator.pushReplacementNamed(context, 'checking');
+                          loginForm.email = _controller.text;
+                          final String errorMessage = await authService.login(
+                                  user, loginForm.password,urlServer) ??
+                              '';
+                          if (errorMessage == '') {
+                            print('deberia ingresar');
+                            Navigator.pushReplacement(
+                                context,
+                                PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) =>
+                                        CheckAuthScreen(
+                                            storage: CounterStorage()),
+                                    transitionDuration: Duration(seconds: 0)));
                           } else {
                             NotificationsService.showSnackBar(errorMessage);
                             loginForm.isLoading = false;
@@ -153,14 +187,11 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
   }
+
   //lectura del usuario almacanado en secure storge y colocado el valor en el text del usuario este es que se deberia mostrar en la pantalla
-  void readUsert() async {
-    //String userLocal=await storage.read(key: 'user') ?? '';
-    String userLocal=(Config.user!='') ? Config.user:'';
-    print(userLocal);
+  void readUsert(String userLocal) async {
     setState(() {
-       _controller.text = userLocal;
+      _controller.text = userLocal;
     });
   }
-
 }

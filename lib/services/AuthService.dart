@@ -10,20 +10,19 @@ class AuthService extends ChangeNotifier {
   bool validURL=false;
   
 
-  Future<String?> login(String email, String password) async {
-    // Read value 
-    print(email);
-    //String  urlServer = await storage.read(key: 'url') ?? '';
-    String urlServer=(Config.urlServer!='') ? Config.urlServer:'';
-    //String  urlServer = await storage.read(key: 'url') ?? '';
-    String urlWebservive = urlServer   + UrlServices.urlLogin + email + "&clave=" + password;
+  Future<String?> login(String email, String password, String urlServer) async {
+    urlServer=urlServer.trim();
+    String urlWebservive = urlServer + UrlServices.urlLogin;
+    //String urlWebservive="http://192.95.6.210:8085/api/login/login";
     validURL = Uri.parse(urlWebservive).isAbsolute;
 
     if(!validURL){
       return 'Ingrese la dirección del servidor';
     }
-    final resp = await http.get(
-      Uri.parse(urlWebservive),
+      var servidor=Uri.parse(urlWebservive);
+      final resp = await http.post(
+      servidor,
+      body:jsonEncode({"userAccount": email, "userPassword":password}),
       headers: {'Content-Type': 'application/json'},
     ).timeout(
       Duration(seconds: 5),
@@ -44,10 +43,10 @@ class AuthService extends ChangeNotifier {
         //almaceno en shared preferences
         User.login(nombre, decodeResp['direcc'], decodeResp['tele'],decodeResp['token'])
             .then((_) {
-              Utility.showToast('Bienvenido $nombre');
+              
             });
         //TODO: aui se deberia almacenar el user id para las consultas
-        return null;
+        return '';
       } else {
         return 'Usuario o contraseña no Validos';
       }

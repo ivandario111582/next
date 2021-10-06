@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:next_project/screens/screens.dart';
 import 'package:next_project/services/services.dart';
@@ -5,7 +7,17 @@ import 'package:next_project/utils/user.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class CheckAuthScreen extends StatelessWidget{
+
+
+//class CheckAuthScreen extends StatelessWidget{
+class CheckAuthScreen extends StatefulWidget {
+final CounterStorage storage;
+    CheckAuthScreen({Key ? key , required this.storage }) : super(key: key);
+  @override
+  _CheckAuthScreenState createState() => _CheckAuthScreenState();
+}
+
+class _CheckAuthScreenState extends State<CheckAuthScreen> {
   
   @override
   Widget build(BuildContext context){
@@ -20,6 +32,7 @@ class CheckAuthScreen extends StatelessWidget{
             return Text('espere');
 
             if(User.token==''){
+              //Utility.showToast('Bienvenido $User.username');
               Future.microtask((){
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>LoginScreen(),

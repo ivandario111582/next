@@ -70,7 +70,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 32,
+                width: 33,
               ),
               Container(
                 width: 150,

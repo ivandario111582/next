@@ -31,7 +31,7 @@ class ClientsProvider extends ChangeNotifier {
       'query': query
     });
     final response = await http.get(url);
-    final searchResponse = SearchClienteResponse.fromJson( response.body );
+        final searchResponse = SearchClienteResponse.fromJson( response.body );
     return searchResponse.results;
   }
 
