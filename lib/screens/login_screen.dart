@@ -167,7 +167,15 @@ class _LoginFormState extends State<LoginForm> {
                           final String errorMessage = await authService.login(
                                   user, loginForm.password,urlServer) ??
                               '';
-                          if (errorMessage == '') {
+                          String mensaje='';
+                          String tocken='';
+                          var arrayData = errorMessage.split('*');
+                          tocken = User.token;
+                          setState(() {
+                            mensaje = arrayData[0];
+                            tocken = User.token;
+                          });
+                          if (mensaje == 'ok') {
                             print('deberia ingresar');
                             Navigator.pushReplacement(
                                 context,

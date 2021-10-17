@@ -28,6 +28,4 @@ class Config {
     await Utility.setLocalStorage('portServer', '');
     await Utility.setLocalStorage('user', '');
   }
-
-
 }
