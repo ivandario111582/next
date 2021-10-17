@@ -35,6 +35,7 @@ class User {
     await Utility.setLocalStorage('userName', '');
     await Utility.setLocalStorage('direcc', '');
     await Utility.setLocalStorage('tele', '');
+    await Utility.setLocalStorage('token', '');
   }
 
 

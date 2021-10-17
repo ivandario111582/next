@@ -18,11 +18,20 @@ final CounterStorage storage;
 }
 
 class _CheckAuthScreenState extends State<CheckAuthScreen> {
+String _tocken='';
+    @override
+  void initState() {
+    super.initState();
+     _tocken = User.token;
+  }
+
+    
   
   @override
   Widget build(BuildContext context){
     final authService = Provider.of<AuthService>(context, listen:false );
-    return Scaffold(
+    
+      return Scaffold(
       body:Center(
         child: FutureBuilder(
           //verificando si existe el tocken para enviar a la pantalla de menu o a la pantala de inicio
@@ -30,15 +39,14 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
            if(!snapshot.hasData)
             return Text('espere');
-
             if(User.token==''){
-              //Utility.showToast('Bienvenido $User.username');
+              Utility.showToast('Bienvenido $User.username');
               Future.microtask((){
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>LoginScreen(),
                   transitionDuration: Duration( seconds: 0)
-                )
-              );
+                  )
+                );
               }
               );
             }else{

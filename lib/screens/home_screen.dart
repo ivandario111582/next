@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child:  Container(
               width: 200,
               height: 200,
-              padding: EdgeInsets.all(20.0),
+             // padding: EdgeInsets.all(20.0),
               alignment: Alignment.bottomCenter,
               decoration: BoxDecoration(
                 color: Colors.blue,

@@ -13,8 +13,7 @@ class AuthService extends ChangeNotifier {
   Future<String?> login(String email, String password, String urlServer) async {
     urlServer=urlServer.trim();
     String urlWebservive = urlServer + UrlServices.urlLogin;
-    //String urlWebservive="http://192.95.6.210:8085/api/login/login";
-    validURL = Uri.parse(urlWebservive).isAbsolute;
+        validURL = Uri.parse(urlWebservive).isAbsolute;
 
     if(!validURL){
       return 'Ingrese la dirección del servidor';
@@ -38,15 +37,15 @@ class AuthService extends ChangeNotifier {
     }
     try{
       final Map<String, dynamic> decodeResp = json.decode(resp.body);
+      String cadena="";
       if (decodeResp['acceso'] == true) {
-        String nombre= decodeResp['name'] ;
+        //String nombre= decodeResp['name'] ;
         //almaceno en shared preferences
-        User.login(nombre, decodeResp['direcc'], decodeResp['tele'],decodeResp['token'])
-            .then((_) {
-              
-            });
-        //TODO: aui se deberia almacenar el user id para las consultas
-        return '';
+          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token'];
+          User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token']).then((_) { 
+          
+        });
+        return cadena;
       } else {
         return 'Usuario o contraseña no Validos';
       }
@@ -59,12 +58,7 @@ class AuthService extends ChangeNotifier {
 
   // para cerrar aplicación
   //TODO: VEN ACA
-  /*Future logout() async {
-    await storage.delete(key: 'token');
-  }*/
-  //para comprobar si el tocket existe
-  
-  Future<String> readToken() async {
+   Future<String> readToken() async {
     return ''; // await storage.read(key: 'token') ?? '';
   }
 

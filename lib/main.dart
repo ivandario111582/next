@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Next',
-      initialRoute: 'checking',
+      //initialRoute: 'checking',
+      initialRoute: 'login',
       routes: getAplicationRoutes(),
       scaffoldMessengerKey: NotificationsService.messengerKey,
       theme: ThemeData.light().copyWith(
