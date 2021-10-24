@@ -17,10 +17,10 @@ class Cliente {
     factory Cliente.fromJson(String str) => Cliente.fromMap(json.decode(str));
 
     factory Cliente.fromMap(Map<String, dynamic> json) => Cliente(
-        codigo  : json["backdrop_path"],
-        nombre  : json["title"],
-        ruc     : json["title"],
-        saldo   : json["popularity"].toDouble(),
+        codigo  : json["codigo"],
+        nombre  : json["nombre"],
+        ruc     : json["ruc"],
+        saldo   : json["saldo"].toDouble(),
     );
       @override
   String toString() {

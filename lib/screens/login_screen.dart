@@ -89,8 +89,7 @@ class _LoginFormState extends State<LoginForm> {
           });
         }
         //llama a la funcion que verifica el estado de usuario y la versión de la app
-        //  _check(userId);
-        readUsert(user);
+          readUsert(user);
       });
     } catch (Ex) {
       print('Something really unknown: $Ex');

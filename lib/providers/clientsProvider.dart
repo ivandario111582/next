@@ -1,19 +1,15 @@
 
 import 'dart:async';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:next_project/helpers/debouncer.dart';
-
 import 'package:next_project/model/models.dart';
-
+import 'package:next_project/services/UrlServices.dart';
+import 'package:next_project/utils/utils.dart';
 
 class ClientsProvider extends ChangeNotifier {
-
-  String _apiKey   = '1865f43a0549ca50d341dd9ab8b29f49';
-  String _baseUrl  = 'api.themoviedb.org';
-  String _language = 'es-ES';
 
   final debouncer = Debouncer(
     duration: Duration( milliseconds: 500 ),
@@ -25,12 +21,11 @@ class ClientsProvider extends ChangeNotifier {
     _suggestionStreamContoller.close();
   }
   Future<List<Cliente>> searchMovies( String query ) async {
-    final url = Uri.https( _baseUrl, '3/search/movie', {
-      'api_key': _apiKey,
-      'language': _language,
-      'query': query
-    });
-    final response = await http.get(url);
+    var server=User.server+UrlServices.urlClientes + User.idEmpresa + '/'+query;
+    final url = Uri.parse(server);
+    final response = await http.get(url,headers: {
+      HttpHeaders.authorizationHeader: 'Bearer '+ User.token
+      });
         final searchResponse = SearchClienteResponse.fromJson( response.body );
     return searchResponse.results;
   }
