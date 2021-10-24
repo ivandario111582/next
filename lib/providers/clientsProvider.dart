@@ -42,5 +42,14 @@ class ClientsProvider extends ChangeNotifier {
     Future.delayed(Duration( milliseconds: 301)).then(( _ ) => timer.cancel());
   }
 
+  Future<List<ClienteDetalle>> searchDetail( String query ) async {
+    var server=User.server+UrlServices.urlClientes + User.idEmpresa + '/'+query;
+    final url = Uri.parse(server);
+    final response = await http.get(url,headers: {
+      HttpHeaders.authorizationHeader: 'Bearer '+ User.token
+      });
+        final searchResponse = SearchClienteDetailResponse.fromJson( response.body );
+    return searchResponse.results;
+  }
 
 }

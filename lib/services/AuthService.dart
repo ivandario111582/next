@@ -6,8 +6,7 @@ import 'package:next_project/services/UrlServices.dart';
 import 'package:next_project/utils/utils.dart';
 
 class AuthService extends ChangeNotifier {
-  //final String _baseUrl = UrlServices.urlLogin;
-  bool validURL=false;
+    bool validURL=false;
   
 
   Future<String?> login(String email, String password, String urlServer) async {
@@ -42,7 +41,7 @@ class AuthService extends ChangeNotifier {
         //String nombre= decodeResp['name'] ;
         //almaceno en shared preferences
           cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token'];
-          User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token']).then((_) { 
+          User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
           
         });
         return cadena;

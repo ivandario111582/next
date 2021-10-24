@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
 import 'package:next_project/search/search.dart';
-
+import 'package:next_project/providers/providers.dart';
 class ClientsScreen extends StatefulWidget {
   @override
   _ClientsScreenState createState() => _ClientsScreenState();
 }
 
 class _ClientsScreenState extends State<ClientsScreen> {
+  final multipleProviders = new MultipleProviders();
   String? nombre = '';
   String? ruc = '';
   String? saldo = '';
@@ -97,6 +98,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                         ruc = arr[2];
                         saldo = arr[3];
                       });
+                      detailsClients(codigo);
                     }
                   }),
             ],
@@ -116,7 +118,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   color: Color(Constants.colorGrey),
                 ),
                 padding: EdgeInsets.all(5.0),
-                child: Text(ruc ?? '',
+                child: Text(nombre ?? '',
                     textAlign: TextAlign.left,
                     style: StyleApp.getStyleTitle(15)),
               ),
@@ -167,6 +169,27 @@ class _ClientsScreenState extends State<ClientsScreen> {
         ],
       ),
     );
+  }
+  detailsClients(String ? codigoCliente){
+    return FutureBuilder(
+        //llamo los datos del provider
+        future: multipleProviders.getDetalleCliente(codigoCliente ?? ''),
+        //cargo los datos del future el la variable snapshot
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            //envio cada item del listado para que se forme un objeto en este caso un cart
+            print(snapshot.data);
+            //return ChurchCarousel(churchs: snapshot.data);
+            return Text('hola');
+          } else {
+            return Container(
+              height: 400.0,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
   }
 }
 
@@ -246,6 +269,7 @@ class ClienteDetalleWidget extends StatelessWidget {
             ),
 
           ],
-        )));
+        ))
+        );
   }
 }

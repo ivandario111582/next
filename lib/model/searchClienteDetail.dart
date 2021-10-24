@@ -6,8 +6,8 @@ import 'dart:convert';
 
 import 'package:next_project/model/models.dart';
 
-class SearchClienteResponse {
-    SearchClienteResponse({
+class SearchClienteDetailResponse {
+    SearchClienteDetailResponse({
         required this.page,
         required this.results,
         required this.totalPages,
@@ -15,15 +15,15 @@ class SearchClienteResponse {
     });
 
     int page;
-    List<Cliente> results;
+    List<ClienteDetalle> results;
     int totalPages;
     int totalResults;
 
-    factory SearchClienteResponse.fromJson(String str) => SearchClienteResponse.fromMap(json.decode(str));
+    factory SearchClienteDetailResponse.fromJson(String str) => SearchClienteDetailResponse.fromMap(json.decode(str));
 
-    factory SearchClienteResponse.fromMap(Map<String, dynamic> json) => SearchClienteResponse(
+    factory SearchClienteDetailResponse.fromMap(Map<String, dynamic> json) => SearchClienteDetailResponse(
         page: json["page"],
-        results: List<Cliente>.from(json["results"].map((x) => Cliente.fromMap(x))),
+        results: List<ClienteDetalle>.from(json["results"].map((x) => ClienteDetalle.fromMap(x))),
         totalPages: 1,
         totalResults: json["total_results"],
     );

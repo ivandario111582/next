@@ -68,7 +68,6 @@ String get searchFieldLabel=>'Buscar Cliente';
                 subtitle: Text( cliente.ruc ?? '' ),
                 onTap: () {
                   this.close(context, cliente);
-                  //Navigator.pushNamed(context, 'clientForm', arguments: cliente );
                 },
               );
             }//=> _ClienteItem( clientes[index])

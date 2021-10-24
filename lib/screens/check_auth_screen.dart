@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 
 
-//class CheckAuthScreen extends StatelessWidget{
 class CheckAuthScreen extends StatefulWidget {
 final CounterStorage storage;
     CheckAuthScreen({Key ? key , required this.storage }) : super(key: key);

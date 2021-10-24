@@ -4,12 +4,14 @@ import 'dart:convert';
 class ClienteDetalle {
     ClienteDetalle({
         required this.codigo,
+        required this.documento,
         required this.emision,
         required this.vence,
         required this.valor,
     });
 
     String ? codigo;
+    String ? documento;
     String ? emision;
     String ? vence='';
     double ? valor=0;
@@ -17,14 +19,15 @@ class ClienteDetalle {
     factory ClienteDetalle.fromJson(String str) => ClienteDetalle.fromMap(json.decode(str));
 
     factory ClienteDetalle.fromMap(Map<String, dynamic> json) => ClienteDetalle(
-        codigo    : json["backdrop_path"],
-        emision   : json["title"],
-        vence     : json["title"],
-        valor     : json["popularity"].toDouble(),
+        codigo      : json["codigo"],
+        documento   : json["documento"],
+        emision     : json["emision"],
+        vence       : json["vence"],
+        valor       : json["valor"].toDouble(),
     );
       @override
   String toString() {
-    return '$codigo'+'-'+'$emision'+'-'+'$vence'+'-'+'$valor' ;
+    return '$codigo'+'-'+'$documento'+'-'+'$emision'+'-'+'$vence'+'-'+'$valor' ;
   }
 }
 
