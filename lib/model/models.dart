@@ -6,3 +6,5 @@ export 'package:next_project/model/searchCliente.dart';
 export 'package:next_project/model/searchArticulo.dart';
 export 'package:next_project/model/clienteDetalle.dart';
 export 'package:next_project/model/searchClienteDetail.dart';
+export 'package:next_project/model/articuloDetalle.dart';
+export 'package:next_project/model/SearchArticuloDetail.dart';

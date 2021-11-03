@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:next_project/model/models.dart';
-//import 'package:next_project/model/cliente.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
 import 'package:next_project/search/search.dart';
@@ -15,7 +14,6 @@ class ClientsScreen extends StatefulWidget {
 
 class _ClientsScreenState extends State<ClientsScreen> {
   final clientsProvider = new ClientsProvider();
-  //final multipleProviders = new MultipleProviders();
   late List<ClienteDetalle>? clienteDetalles = [];
   String? nombre = '';
   String? ruc = '';
@@ -23,8 +21,6 @@ class _ClientsScreenState extends State<ClientsScreen> {
   String? codigo = '';
 
   //para relacionar con la caja de texto
-  //TextEditingController _inputFieldDateController = new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +35,6 @@ class _ClientsScreenState extends State<ClientsScreen> {
               _crearEncabezado(),
               SizedBox(height: 5),
               detailsClients(codigo)
-              //ClienteDetalleWidget()
             ],
           ),
         ));
@@ -246,148 +241,6 @@ class _ClientsScreenState extends State<ClientsScreen> {
                         DataCell(Text('')),
                       ]))
               .toList(),
-        ))); /* FutureBuilder(
-        //llamo los datos del provider
-        //future: multipleProviders.getDetalleCliente(codigoCliente ?? ''),
-        future: clientsProvider.searchDetail(codigoCliente ?? ''),
-        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-          if (snapshot.hasData) {
-            clienteDetalles = snapshot.data!.cast<ClienteDetalle>();
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..
-              child: SingleChildScrollView(
-                child: DataTable(
-                  columns: [
-                    DataColumn(
-                      label: Text(
-                        'Documento',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Emisión',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Vence',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Valor',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Opción',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                  rows: const <DataRow>[
-                    DataRow(
-                      cells: <DataCell>[
-                        DataCell(Text('Mohit')),
-                        DataCell(Text('23')),
-                        DataCell(Text('Associate Software Developer')),
-                        DataCell(Text('23')),
-                        DataCell(Text('Associate Software Developer')),
-                      ],
-                    ),
-                  ], /* clienteDetalles!
-                      .map((data) =>
-                          // we return a DataRow every time
-                          DataRow(
-                              // List<DataCell> cells is required in every row
-                              cells: [
-                                // I want to display a green color icon when user is verified and red when unverified
-                                DataCell(Text(data.codigo ?? '')),
-                                DataCell(Text(data.documento ?? '')),
-                                DataCell(Text(data.emision ?? '')),
-                                DataCell(Text(data.vence ?? '')),
-                                DataCell(Text(data.valor.toString())),
-                                DataCell(Text('')),
-                              ]))
-                      .toList(), */
-                ),
-              ),
-            );
-          } else {
-            return Container(
-              height: 400.0,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        });*/
-  }
-}
-/*
-class ClienteDetalleWidget extends StatelessWidget {
-  ClienteDetalleWidget({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..
-        child: SingleChildScrollView(
-            child: DataTable(
-          decoration: new BoxDecoration(
-            color: Color(Constants.colorGrey),
-          ),
-          headingRowColor: MaterialStateColor.resolveWith(
-              (states) => Color(Constants.colorBlue)),
-          columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Documento',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Emisión',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Vence',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Valor',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Opción',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-          rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Mohit')),
-                DataCell(Text('23')),
-                DataCell(Text('Associate Software Developer')),
-                DataCell(Text('23')),
-                DataCell(Text('Associate Software Developer')),
-              ],
-            ),
-          ],
         )));
   }
 }
-*/

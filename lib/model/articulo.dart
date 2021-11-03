@@ -16,9 +16,9 @@ class Articulo {
     factory Articulo.fromJson(String str) => Articulo.fromMap(json.decode(str));
 
     factory Articulo.fromMap(Map<String, dynamic> json) => Articulo(
-        codigo  : json["backdrop_path"],
-        descripcion  : json["title"],
-        total   : json["popularity"].toDouble(),
+        codigo  : json["codigo"],
+        descripcion  : json["descripcion"],
+        total   : json["total"].toDouble(),
     );
       @override
   String toString() {

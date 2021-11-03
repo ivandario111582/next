@@ -1,12 +1,12 @@
 import 'dart:convert';
-
+/*
 class ClienteDetalles {
   List<ClienteDetalle> items = [];
 
   ClienteDetalles();
 
   ClienteDetalles.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) return;
+    //if (jsonList == null) return;
 
     for (var item in jsonList) {
       final clienteDetalle = new ClienteDetalle.fromMap(item);
@@ -14,7 +14,7 @@ class ClienteDetalles {
     }
   }
 }
-
+*/
 class ClienteDetalle {
   ClienteDetalle({
     required this.codigo,

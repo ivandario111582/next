@@ -1,19 +1,15 @@
 
 import 'dart:async';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:next_project/helpers/debouncer.dart';
-
 import 'package:next_project/model/models.dart';
-
+import 'package:next_project/utils/utils.dart';
+import 'package:next_project/services/UrlServices.dart';
 
 class ArticlesProvider extends ChangeNotifier {
 
-  String _apiKey   = '1865f43a0549ca50d341dd9ab8b29f49';
-  String _baseUrl  = 'api.themoviedb.org';
-  String _language = 'es-ES';
 
   final debouncer = Debouncer(
     duration: Duration( milliseconds: 500 ),
@@ -25,13 +21,14 @@ class ArticlesProvider extends ChangeNotifier {
     _suggestionStreamContoller.close();
   }
   Future<List<Articulo>> searchMovies( String query ) async {
-    final url = Uri.https( _baseUrl, '3/search/movie', {
-      'api_key': _apiKey,
-      'language': _language,
-      'query': query
-    });
-    final response = await http.get(url);
-    final searchResponse = SearchArticuloResponse.fromJson( response.body );
+    var server =
+        User.server + UrlServices.urlArticulos + User.idEmpresa + '/' + query;
+    final url = Uri.parse(server);
+    final response = await http.get(url,
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
+        print(response.body);
+    final searchResponse = SearchArticuloResponse.fromJson(response.body);
+    print(searchResponse.results);
     return searchResponse.results;
   }
 
@@ -46,6 +43,17 @@ class ArticlesProvider extends ChangeNotifier {
     });
     Future.delayed(Duration( milliseconds: 301)).then(( _ ) => timer.cancel());
   }
-
+  Future<List<ArticuloDetalle>> searchDetail(String query) async {
+    var server = User.server +
+        UrlServices.urlArticulosDetalle +
+        User.idEmpresa +
+        '/' +
+        query;
+    final url = Uri.parse(server);
+    final response = await http.get(url,
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
+    final resp = SearchArticuloDetailResponse.fromJson(response.body);
+        return resp.results.toList();
+  }
 
 }
