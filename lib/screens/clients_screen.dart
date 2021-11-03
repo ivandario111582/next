@@ -1,16 +1,22 @@
+// ignore_for_file: unnecessary_question_mark
+
 import 'package:flutter/material.dart';
+import 'package:next_project/model/models.dart';
 //import 'package:next_project/model/cliente.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
 import 'package:next_project/search/search.dart';
 import 'package:next_project/providers/providers.dart';
+
 class ClientsScreen extends StatefulWidget {
   @override
   _ClientsScreenState createState() => _ClientsScreenState();
 }
 
 class _ClientsScreenState extends State<ClientsScreen> {
-  final multipleProviders = new MultipleProviders();
+  final clientsProvider = new ClientsProvider();
+  //final multipleProviders = new MultipleProviders();
+  late List<ClienteDetalle>? clienteDetalles = [];
   String? nombre = '';
   String? ruc = '';
   String? saldo = '';
@@ -32,7 +38,8 @@ class _ClientsScreenState extends State<ClientsScreen> {
               _crearEtiqueta(),
               _crearEncabezado(),
               SizedBox(height: 5),
-              ClienteDetalleWidget()
+              detailsClients(codigo)
+              //ClienteDetalleWidget()
             ],
           ),
         ));
@@ -98,7 +105,11 @@ class _ClientsScreenState extends State<ClientsScreen> {
                         ruc = arr[2];
                         saldo = arr[3];
                       });
-                      detailsClients(codigo);
+                      clienteDetalles =
+                          await clientsProvider.searchDetail(codigo ?? '');
+                      setState(() {
+                        clienteDetalles = clienteDetalles;
+                      });
                     }
                   }),
             ],
@@ -170,17 +181,143 @@ class _ClientsScreenState extends State<ClientsScreen> {
       ),
     );
   }
-  detailsClients(String ? codigoCliente){
-    return FutureBuilder(
+
+  detailsClients(String? codigoCliente) {
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..
+        child: SingleChildScrollView(
+            child: DataTable(
+          decoration: new BoxDecoration(
+            color: Color(Constants.colorGrey),
+          ),
+          headingRowColor: MaterialStateColor.resolveWith(
+              (states) => Color(Constants.colorBlue)),
+          columns: const <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Código',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Documento',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Emisión',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Vence',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Valor',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Opción',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+          rows: clienteDetalles!
+              .map((data) =>
+                  // we return a DataRow every time
+                  DataRow(
+                      // List<DataCell> cells is required in every row
+                      cells: [
+                        // I want to display a green color icon when user is verified and red when unverified
+                        DataCell(Text(data.codigo ?? '')),
+                        DataCell(Text(data.documento ?? '')),
+                        DataCell(Text(data.emision ?? '')),
+                        DataCell(Text(data.vence ?? '')),
+                        DataCell(Text(data.valor.toString())),
+                        DataCell(Text('')),
+                      ]))
+              .toList(),
+        ))); /* FutureBuilder(
         //llamo los datos del provider
-        future: multipleProviders.getDetalleCliente(codigoCliente ?? ''),
-        //cargo los datos del future el la variable snapshot
+        //future: multipleProviders.getDetalleCliente(codigoCliente ?? ''),
+        future: clientsProvider.searchDetail(codigoCliente ?? ''),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasData) {
-            //envio cada item del listado para que se forme un objeto en este caso un cart
-            print(snapshot.data);
-            //return ChurchCarousel(churchs: snapshot.data);
-            return Text('hola');
+            clienteDetalles = snapshot.data!.cast<ClienteDetalle>();
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..
+              child: SingleChildScrollView(
+                child: DataTable(
+                  columns: [
+                    DataColumn(
+                      label: Text(
+                        'Documento',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Emisión',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Vence',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Valor',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Text(
+                        'Opción',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                  rows: const <DataRow>[
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('Mohit')),
+                        DataCell(Text('23')),
+                        DataCell(Text('Associate Software Developer')),
+                        DataCell(Text('23')),
+                        DataCell(Text('Associate Software Developer')),
+                      ],
+                    ),
+                  ], /* clienteDetalles!
+                      .map((data) =>
+                          // we return a DataRow every time
+                          DataRow(
+                              // List<DataCell> cells is required in every row
+                              cells: [
+                                // I want to display a green color icon when user is verified and red when unverified
+                                DataCell(Text(data.codigo ?? '')),
+                                DataCell(Text(data.documento ?? '')),
+                                DataCell(Text(data.emision ?? '')),
+                                DataCell(Text(data.vence ?? '')),
+                                DataCell(Text(data.valor.toString())),
+                                DataCell(Text('')),
+                              ]))
+                      .toList(), */
+                ),
+              ),
+            );
           } else {
             return Container(
               height: 400.0,
@@ -189,11 +326,10 @@ class _ClientsScreenState extends State<ClientsScreen> {
               ),
             );
           }
-        });
+        });*/
   }
 }
-
-
+/*
 class ClienteDetalleWidget extends StatelessWidget {
   ClienteDetalleWidget({Key? key}) : super(key: key);
   @override
@@ -203,39 +339,40 @@ class ClienteDetalleWidget extends StatelessWidget {
         // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..
         child: SingleChildScrollView(
             child: DataTable(
-              decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
-                ),
-              headingRowColor: MaterialStateColor.resolveWith((states) => Color(Constants.colorBlue)),
+          decoration: new BoxDecoration(
+            color: Color(Constants.colorGrey),
+          ),
+          headingRowColor: MaterialStateColor.resolveWith(
+              (states) => Color(Constants.colorBlue)),
           columns: const <DataColumn>[
             DataColumn(
               label: Text(
                 'Documento',
-                style: TextStyle( color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             DataColumn(
               label: Text(
                 'Emisión',
-                style: TextStyle( color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             DataColumn(
               label: Text(
                 'Vence',
-                style: TextStyle( color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             DataColumn(
               label: Text(
                 'Valor',
-                style: TextStyle( color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ),
             DataColumn(
               label: Text(
                 'Opción',
-                style: TextStyle( color: Colors.white),
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],
@@ -249,27 +386,8 @@ class ClienteDetalleWidget extends StatelessWidget {
                 DataCell(Text('Associate Software Developer')),
               ],
             ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Akshay')),
-                DataCell(Text('25')),
-                DataCell(Text('Software Developer')),
-                DataCell(Text('23')),
-                DataCell(Text('Associate Software Developer')),
-              ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Akshay')),
-                DataCell(Text('25')),
-                DataCell(Text('Software Developer')),
-                DataCell(Text('23')),
-                DataCell(Text('Associate Software Developer')),
-              ],
-            ),
-
           ],
-        ))
-        );
+        )));
   }
 }
+*/

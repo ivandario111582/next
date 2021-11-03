@@ -19,7 +19,7 @@ class MultipleProviders {
       HttpHeaders.authorizationHeader: 'Bearer '+ User.token
       });
         final searchResponse = SearchClienteDetailResponse.fromJson( response.body );
-        print(response.body);
+        print(searchResponse.results);
     return searchResponse.results;
 
 

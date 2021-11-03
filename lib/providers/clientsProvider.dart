@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -10,46 +9,50 @@ import 'package:next_project/services/UrlServices.dart';
 import 'package:next_project/utils/utils.dart';
 
 class ClientsProvider extends ChangeNotifier {
-
   final debouncer = Debouncer(
-    duration: Duration( milliseconds: 500 ),
+    duration: Duration(milliseconds: 500),
   );
 
-  final StreamController<List<Cliente>> _suggestionStreamContoller = new StreamController.broadcast();
-  Stream<List<Cliente>> get suggestionStream => this._suggestionStreamContoller.stream;
+  final StreamController<List<Cliente>> _suggestionStreamContoller =
+      new StreamController.broadcast();
+  Stream<List<Cliente>> get suggestionStream =>
+      this._suggestionStreamContoller.stream;
   void disposeStreams() {
     _suggestionStreamContoller.close();
   }
-  Future<List<Cliente>> searchMovies( String query ) async {
-    var server=User.server+UrlServices.urlClientes + User.idEmpresa + '/'+query;
+
+  Future<List<Cliente>> searchMovies(String query) async {
+    var server =
+        User.server + UrlServices.urlClientes + User.idEmpresa + '/' + query;
     final url = Uri.parse(server);
-    final response = await http.get(url,headers: {
-      HttpHeaders.authorizationHeader: 'Bearer '+ User.token
-      });
-        final searchResponse = SearchClienteResponse.fromJson( response.body );
+    final response = await http.get(url,
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
+    final searchResponse = SearchClienteResponse.fromJson(response.body);
     return searchResponse.results;
   }
 
-  void getSuggestionsByQuery( String searchTerm ) {
+  void getSuggestionsByQuery(String searchTerm) {
     debouncer.value = '';
-    debouncer.onValue = ( value ) async {
+    debouncer.onValue = (value) async {
       final results = await this.searchMovies(value);
-      this._suggestionStreamContoller.add( results );
+      this._suggestionStreamContoller.add(results);
     };
-    final timer = Timer.periodic(Duration(milliseconds: 300), ( _ ) { 
+    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
       debouncer.value = searchTerm;
     });
-    Future.delayed(Duration( milliseconds: 301)).then(( _ ) => timer.cancel());
+    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 
-  Future<List<ClienteDetalle>> searchDetail( String query ) async {
-    var server=User.server+UrlServices.urlClientes + User.idEmpresa + '/'+query;
+  Future<List<ClienteDetalle>> searchDetail(String query) async {
+    var server = User.server +
+        UrlServices.urlClienteDetalle +
+        User.idEmpresa +
+        '/' +
+        query;
     final url = Uri.parse(server);
-    final response = await http.get(url,headers: {
-      HttpHeaders.authorizationHeader: 'Bearer '+ User.token
-      });
-        final searchResponse = SearchClienteDetailResponse.fromJson( response.body );
-    return searchResponse.results;
+    final response = await http.get(url,
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
+    final resp = SearchClienteDetailResponse.fromJson(response.body);
+        return resp.results.toList();
   }
-
 }
