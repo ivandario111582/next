@@ -62,10 +62,13 @@ String get searchFieldLabel=>'Buscar Cliente';
           return ListView.builder(
             itemCount: clientes.length,
             itemBuilder: (contex, int index ) {
-            final cliente=clientes[index];             
+            final cliente=clientes[index]; 
+            final codigo=cliente.codigo ?? '';
+            final saldo=cliente.saldo.toString(); 
+            final postFechados=cliente.postFechados.toString();
                     return ListTile(
                 title: Text( cliente.nombre ?? '' ),
-                subtitle: Text( cliente.ruc ?? '' ),
+                subtitle: Text('Código: $codigo   Saldo: $saldo   Postfec: $postFechados' ),
                 onTap: () {
                   this.close(context, cliente);
                 },

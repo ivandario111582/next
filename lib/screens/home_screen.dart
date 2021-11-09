@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
 
@@ -9,15 +10,24 @@ import 'package:next_project/widgets/widgets.dart';
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+void initState(){
+  super.initState();
+  SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+  ]);
+}
 
 
   @override
   Widget build(BuildContext context) {
-  List data=[{
+  List data=[
+    /*{
   "imagen"  : "assets/orders.png",
   "title"   : "Pedidos",
   "form"    : "orderForm"
-}, {
+},*/ {
   "imagen"  : "assets/clients.png",
   "title"   : "Clientes",
   "form"    : "clientForm"
@@ -25,11 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
   "imagen"  : "assets/articles.png",
   "title"   : "Articulos",
   "form"    : "articlesForm"
-}, {
+}/*, {
   "imagen"  : "assets/reports.png",
   "title"   : "Reportes",
   "form"    : "reportForm"
-}];
+}*/];
  // final authService=Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       appBar:StyleApp.getAppBarSimple(context),  
@@ -53,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
         child: Column(
           children: <Widget>[
+            SizedBox( height: 20 ),
             crearOrganization(),
             SizedBox( height: 30 ),
           ]))),
@@ -92,6 +103,17 @@ class _HomeScreenState extends State<HomeScreen> {
       )
    ));
   }
+
+  @override
+dispose(){
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  super.dispose();
+}
 }
 
 

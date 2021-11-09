@@ -23,8 +23,8 @@ class _ConfigScreenState extends State<ConfigScreen> {
   String user = '';
   String cadena = '';
   String _dataDisp = '';
-  String _counter = '0';
-  String _chekUsuario = '0';
+  String counter = '0';
+  String chekUsuario = '0';
   @override
   void initState() {
     super.initState();
@@ -36,7 +36,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
         //retorna como 0 en el caso que es primer logeo o se presiono cerrar sesión para ir directamente a la pantalla de login
         if (_dataDisp == '0') {
           setState(() {
-            _counter = '0';
+            counter = '0';
           });
         } else {
           //siginifica que ya ha ingresado antes, divide la cadena recueprada para tomar id del usuario y verificar el estado del usuario
@@ -47,14 +47,14 @@ class _ConfigScreenState extends State<ConfigScreen> {
             user = arrayData[2];
           });
 
-          _chekUsuario = '1';
+          chekUsuario = '1';
         }
         //llama a la funcion que verifica el estado de usuario y la versión de la app
         //  _check(userId);
         readUsert();
       });
-    } catch (Ex) {
-      print('Something really unknown: $Ex');
+    } catch (ex) {
+      print('Something really unknown: $ex');
     }
   }
 
@@ -64,7 +64,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
       appBar: new AppBar(
           elevation: 0.1,
           backgroundColor: Color(Constants.colorBlue),
-          title: new Text("Next ERP")),
+          title: new Text(Constants.tituloApp)),
       body: AuthBackground(
           child: SingleChildScrollView(
         child: Container(
@@ -170,11 +170,6 @@ class _ConfigScreenState extends State<ConfigScreen> {
 
   //lectura del usuario almacanado en secure storge y colocado el valor en el text del usuario este es que se deberia mostrar en la pantalla
   void readUsert() async {
-    /*setState(() {
-       _controller.text       = (Config.user!='') ? Config.user:'';
-       _controllerServer.text = (Config.urlServer!='') ? Config.urlServer:'';
-       _controllerPort.text   = (Config.portServer!='') ? Config.portServer:'';;
-    }); */
     setState(() {
       _controller.text = user;
       _controllerServer.text = urlServer;

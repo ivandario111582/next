@@ -8,7 +8,7 @@ class StyleApp{
           return AppBar(
           elevation: 0.1,
           backgroundColor: Color(Constants.colorBlue),
-          title: new Text("Next ERP"),
+          title: new Text(Constants.tituloApp),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.exit_to_app),

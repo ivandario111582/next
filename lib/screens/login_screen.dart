@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: new AppBar(
             elevation: 0.1,
             backgroundColor: Color(Constants.colorBlue),
-            title: new Text("Next ERP")),
+            title: new Text(Constants.tituloApp)),
         body: AuthBackground(
             child: SingleChildScrollView(
           child: Column(
@@ -62,7 +62,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   String _dataDisp = '';
-  String _counter = '0';
+  String counter = '0';
   String urlServer = '';
   String portServer = '';
   TextEditingController _controller = new TextEditingController();
@@ -78,7 +78,7 @@ class _LoginFormState extends State<LoginForm> {
         //retorna como 0 en el caso que es primer logeo o se presiono cerrar sesión para ir directamente a la pantalla de login
         if (_dataDisp == '0') {
           setState(() {
-            _counter = '0';
+            counter = '0';
           });
         } else {
           //siginifica que ya ha ingresado antes, divide la cadena recueprada para tomar id del usuario y verificar el estado del usuario
@@ -91,8 +91,8 @@ class _LoginFormState extends State<LoginForm> {
         //llama a la funcion que verifica el estado de usuario y la versión de la app
           readUsert(user);
       });
-    } catch (Ex) {
-      print('Something really unknown: $Ex');
+    } catch (ex) {
+      print('Something really unknown: $ex');
     }
   }
 

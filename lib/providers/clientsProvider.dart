@@ -53,6 +53,6 @@ class ClientsProvider extends ChangeNotifier {
     final response = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
     final resp = SearchClienteDetailResponse.fromJson(response.body);
-        return resp.results.toList();
+    return resp.results.toList();
   }
 }

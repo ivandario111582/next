@@ -14,7 +14,7 @@ class CounterStorage {
 
 // Leer archivo la primera vez que se ejecuta el archivo
   Future<String> readCounter() async {
-    String count = '0';
+    //String count = '0';
     try {
       final file = await _localFile;
       String contents = await file.readAsString();
@@ -22,9 +22,8 @@ class CounterStorage {
     } catch (e) {
       // Si el documento no esta escrito, regresamos 0
       return '0';
-      print('valor de : $count');
     }
-    return count;
+    //return count;
   }
 
   Future<File> writeCounter(String counter) async {

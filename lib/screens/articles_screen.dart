@@ -43,10 +43,10 @@ class _ArticleScreenState extends State<ArticleScreen> {
         padding: EdgeInsets.all(5.0),
         width: 100,
         decoration: new BoxDecoration(
-          color: Colors.grey,
+          color: Color(Constants.colorGreyInf),
         ),
         child: Row(children: <Widget>[
-          Text(' INVENTARIO', style: TextStyle(color: Colors.white)),
+          Text(' Inventario', style: TextStyle(color: Colors.white)),
         ]));
   }
 
@@ -71,7 +71,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 32,
+                width: 37,
               ),
               Container(
                 width: 150,
@@ -105,14 +105,14 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   }),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 1),
           Row(
             children: [
               Text(' Nombre',
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 30,
+                width: 32,
               ),
               Container(
                 width: 250,
@@ -133,7 +133,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 46,
+                width: 52,
               ),
               Container(
                 width: 150,

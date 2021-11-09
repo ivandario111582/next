@@ -56,8 +56,7 @@ class AuthService extends ChangeNotifier {
   }
 
   // para cerrar aplicación
-  //TODO: VEN ACA
-   Future<String> readToken() async {
+     Future<String> readToken() async {
     return ''; // await storage.read(key: 'token') ?? '';
   }
 

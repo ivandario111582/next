@@ -17,11 +17,11 @@ final CounterStorage storage;
 }
 
 class _CheckAuthScreenState extends State<CheckAuthScreen> {
-String _tocken='';
+String tocken='';
     @override
   void initState() {
     super.initState();
-     _tocken = User.token;
+     tocken = User.token;
   }
 
     

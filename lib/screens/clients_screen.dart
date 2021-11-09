@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_question_mark
-
 import 'package:flutter/material.dart';
 import 'package:next_project/model/models.dart';
 import 'package:next_project/utils/utils.dart';
@@ -15,10 +13,11 @@ class ClientsScreen extends StatefulWidget {
 class _ClientsScreenState extends State<ClientsScreen> {
   final clientsProvider = new ClientsProvider();
   late List<ClienteDetalle>? clienteDetalles = [];
-  String? nombre = '';
-  String? ruc = '';
-  String? saldo = '';
-  String? codigo = '';
+  String? nombre       = '';
+  String? ruc          = '';
+  String? saldo        = '';
+  String? codigo       = '';
+  String? postFechados = '';
 
   //para relacionar con la caja de texto
   @override
@@ -30,7 +29,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
               crearOrganization(),
-              SizedBox(height: 30),
+              SizedBox(height: 10),
               _crearEtiqueta(),
               _crearEncabezado(),
               SizedBox(height: 5),
@@ -45,10 +44,10 @@ class _ClientsScreenState extends State<ClientsScreen> {
         padding: EdgeInsets.all(5.0),
         width: 100,
         decoration: new BoxDecoration(
-          color: Colors.grey,
+          color: Color(Constants.colorGreyInf),
         ),
         child: Row(children: <Widget>[
-          Text(' CLIENTES', style: TextStyle(color: Colors.white)),
+          Text(' Información Clientes', style: TextStyle(color: Colors.white)),
         ]));
   }
 
@@ -73,7 +72,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 33,
+                width: 37,
               ),
               Container(
                 width: 150,
@@ -95,10 +94,11 @@ class _ClientsScreenState extends State<ClientsScreen> {
                       final cadena = clienteSeleccionado.toString();
                       var arr = cadena.split('-');
                       setState(() {
-                        codigo = arr[0];
-                        nombre = arr[1];
-                        ruc = arr[2];
-                        saldo = arr[3];
+                        codigo        = arr[0];
+                        nombre        = arr[1];
+                        ruc           = arr[2];
+                        saldo         = arr[3];
+                        postFechados  = arr[4];
                       });
                       clienteDetalles =
                           await clientsProvider.searchDetail(codigo ?? '');
@@ -109,14 +109,14 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   }),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 2),
           Row(
             children: [
               Text(' Nombre',
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 30,
+                width: 32,
               ),
               Container(
                 width: 250,
@@ -133,11 +133,11 @@ class _ClientsScreenState extends State<ClientsScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' RUC',
+              Text(' Chq. Postf.',
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 55,
+                width: 10,
               ),
               Container(
                 width: 150,
@@ -145,7 +145,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   color: Color(Constants.colorGrey),
                 ),
                 padding: EdgeInsets.all(5.0),
-                child: Text(ruc ?? '',
+                child: Text(postFechados ?? '',
                     textAlign: TextAlign.left,
                     style: StyleApp.getStyleTitle(15)),
               ),
@@ -158,7 +158,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   textAlign: TextAlign.right,
                   style: StyleApp.getStyleTitle(15)),
               SizedBox(
-                width: 46,
+                width: 47,
               ),
               Container(
                 width: 150,
@@ -188,22 +188,11 @@ class _ClientsScreenState extends State<ClientsScreen> {
           ),
           headingRowColor: MaterialStateColor.resolveWith(
               (states) => Color(Constants.colorBlue)),
+          columnSpacing: 20.0,
           columns: const <DataColumn>[
             DataColumn(
               label: Text(
-                'Código',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
                 'Documento',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Emisión',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -215,13 +204,13 @@ class _ClientsScreenState extends State<ClientsScreen> {
             ),
             DataColumn(
               label: Text(
-                'Valor',
+                'Saldo',
                 style: TextStyle(color: Colors.white),
               ),
             ),
             DataColumn(
               label: Text(
-                'Opción',
+                'Chq. Postf.',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -233,12 +222,10 @@ class _ClientsScreenState extends State<ClientsScreen> {
                       // List<DataCell> cells is required in every row
                       cells: [
                         // I want to display a green color icon when user is verified and red when unverified
-                        DataCell(Text(data.codigo ?? '')),
                         DataCell(Text(data.documento ?? '')),
-                        DataCell(Text(data.emision ?? '')),
                         DataCell(Text(data.vence ?? '')),
                         DataCell(Text(data.valor.toString())),
-                        DataCell(Text('')),
+                        DataCell(Text(data.postFechados.toString())),
                       ]))
               .toList(),
         )));

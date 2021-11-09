@@ -62,10 +62,12 @@ String get searchFieldLabel=>'Buscar Articulos';
           return ListView.builder(
             itemCount: articulos.length,
             itemBuilder: (contex, int index ) {
-            final articulo=articulos[index];             
-                    return ListTile(
+            final articulo=articulos[index];
+            final codigo=articulo.codigo;
+            final saldo=articulo.total;
+              return ListTile(
                 title: Text( articulo.descripcion ?? '' ),
-                subtitle: Text( articulo.codigo ?? '' ),
+                subtitle: Text( 'Código: $codigo   Saldo: $saldo' ),
                 onTap: () {
                   this.close(context, articulo);
                 },
