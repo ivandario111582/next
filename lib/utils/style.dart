@@ -34,4 +34,12 @@ class StyleApp{
       color: Color(Constants.colorBlue)
     );
   }
+    static getStyleInfo(double fontSize){
+    return TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.bold,
+      //fontStyle: FontStyle.normal,
+      fontStyle: FontStyle.normal,
+    );
+  }
 }

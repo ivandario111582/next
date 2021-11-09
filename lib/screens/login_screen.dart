@@ -65,6 +65,7 @@ class _LoginFormState extends State<LoginForm> {
   String counter = '0';
   String urlServer = '';
   String portServer = '';
+  String tocken='';
   TextEditingController _controller = new TextEditingController();
   String user = '';
   @override
@@ -167,7 +168,6 @@ class _LoginFormState extends State<LoginForm> {
                                   user, loginForm.password,urlServer) ??
                               '';
                           String mensaje='';
-                          String tocken='';
                           var arrayData = errorMessage.split('*');
                           tocken = User.token;
                           setState(() {
@@ -175,7 +175,10 @@ class _LoginFormState extends State<LoginForm> {
                             tocken = User.token;
                           });
                           if (mensaje == 'ok') {
-                            print('deberia ingresar');
+                          setState(() {
+                            tocken = User.token;
+                          });
+                            //print('deberia ingresar');
                             Navigator.pushReplacement(
                                 context,
                                 PageRouteBuilder(

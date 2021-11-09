@@ -30,7 +30,7 @@ class AuthService extends ChangeNotifier {
       },
     );
 
-    print(resp.body);
+//    print(resp.body);
     if(resp.body=='Error'){
       return 'El servidor ingresado no responde';
     }
@@ -42,7 +42,7 @@ class AuthService extends ChangeNotifier {
         //almaceno en shared preferences
           cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token'];
           User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
-          
+          print('cadena: '+User.userName);
         });
         return cadena;
       } else {

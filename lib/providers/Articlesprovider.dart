@@ -28,7 +28,7 @@ class ArticlesProvider extends ChangeNotifier {
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
         print(response.body);
     final searchResponse = SearchArticuloResponse.fromJson(response.body);
-    print(searchResponse.results);
+    //print(searchResponse.results);
     return searchResponse.results;
   }
 
@@ -53,6 +53,7 @@ class ArticlesProvider extends ChangeNotifier {
     final response = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
     final resp = SearchArticuloDetailResponse.fromJson(response.body);
+      print (response.body);
         return resp.results.toList();
   }
 

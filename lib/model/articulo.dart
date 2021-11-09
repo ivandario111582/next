@@ -22,6 +22,6 @@ class Articulo {
     );
       @override
   String toString() {
-    return '$codigo'+'-'+'$descripcion'+'-'+'$total' ;
+    return '$codigo'+'---'+'$descripcion'+'---'+'$total' ;
   }
 }

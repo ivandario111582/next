@@ -9,7 +9,7 @@ class ArticuloDetalle {
 
   String? codigo;
   String? bodega;
-  int? cantidad=0;
+  double? cantidad=0;
 
   factory ArticuloDetalle.fromJson(String str) =>
       ArticuloDetalle.fromMap(json.decode(str));
@@ -17,7 +17,7 @@ class ArticuloDetalle {
   factory ArticuloDetalle.fromMap(Map<String, dynamic> json) => ArticuloDetalle(
         codigo: json["codigo"],
         bodega: json["bodega"],
-        cantidad: json["cantidad"]
+        cantidad: json["cantidad"].toDouble()
       );
 
   @override

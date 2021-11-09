@@ -81,7 +81,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 padding: EdgeInsets.all(5.0),
                 child: Text(codigo ?? '',
                     textAlign: TextAlign.left,
-                    style: StyleApp.getStyleTitle(15)),
+                    style: StyleApp.getStyleInfo(15)),
               ),
               IconButton(
                   icon: Icon(Icons.search),
@@ -91,7 +91,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         context: context, delegate: ArticlesSearchDelegate());
                     if (articuloSeleccionado != null) {
                       final cadena = articuloSeleccionado.toString();
-                      var arr = cadena.split('-');
+                      var arr = cadena.split('---');
                       setState(() {
                         codigo      = arr[0];
                         descripcion = arr[1];
@@ -122,7 +122,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 padding: EdgeInsets.all(5.0),
                 child: Text(descripcion ?? '',
                     textAlign: TextAlign.left,
-                    style: StyleApp.getStyleTitle(15)),
+                    style: StyleApp.getStyleInfo(15)),
               ),
             ],
           ),
@@ -143,7 +143,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 padding: EdgeInsets.all(5.0),
                 child: Text(total ?? '',
                     textAlign: TextAlign.left,
-                    style: StyleApp.getStyleTitle(15)),
+                    style: StyleApp.getStyleInfo(18)),
               ),
             ],
           ),

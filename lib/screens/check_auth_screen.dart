@@ -36,10 +36,12 @@ String tocken='';
           //verificando si existe el tocken para enviar a la pantalla de menu o a la pantala de inicio
           future: authService.readToken(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-           if(!snapshot.hasData)
-            return Text('espere');
+           if(!snapshot.hasData){
+             return Text('espere');
+           }
+            
             if(User.token==''){
-              Utility.showToast('Bienvenido $User.username');
+             // Utility.showToast('Bienvenido $User.username');
               Future.microtask((){
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>LoginScreen(),
