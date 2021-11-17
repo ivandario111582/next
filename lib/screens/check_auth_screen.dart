@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:next_project/providers/providers.dart';
 import 'package:next_project/screens/screens.dart';
 import 'package:next_project/services/services.dart';
 import 'package:next_project/utils/user.dart';
@@ -39,9 +40,10 @@ String tocken='';
            if(!snapshot.hasData){
              return Text('espere');
            }
-            
-            if(User.token==''){
-             // Utility.showToast('Bienvenido $User.username');
+            final organization = Provider.of<MultipleProviders>(
+                              context,
+                              listen: false);
+            if(organization.tocken==''){
               Future.microtask((){
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>LoginScreen(),
@@ -51,6 +53,8 @@ String tocken='';
               }
               );
             }else{
+              String empresa=organization.empresa;
+              Utility.showToast('Bienvenido $empresa');
               Future.microtask((){
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>HomeScreen(),

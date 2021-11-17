@@ -1,5 +1,9 @@
 
 
+import 'package:flutter/cupertino.dart';
+import 'package:next_project/providers/providers.dart';
+import 'package:provider/provider.dart';
+
 import 'utility.dart';
 
 class User {
@@ -35,8 +39,8 @@ class User {
     User.idEmpresa  = idEmpresa;
   }
 
-  static Future<Null> logout() async {
-    userName  = '';
+  static Future<Null> logout(BuildContext context)async {
+    /*userName  = '';
     direcc    = '';
     tele      = '';
     token     = '';
@@ -47,7 +51,13 @@ class User {
     await Utility.setLocalStorage('tele', '');
     await Utility.setLocalStorage('token', '');
     await Utility.setLocalStorage('server', '');
-    await Utility.setLocalStorage('idEmpresa', '');
+    await Utility.setLocalStorage('idEmpresa', '');*/
+
+    final organization = Provider.of<MultipleProviders>(context,listen: false);
+      organization.empresa    = '';
+      organization.direccion  = '';
+      organization.telefono   = '';
+      organization.tocken     = '';
   }
 
 

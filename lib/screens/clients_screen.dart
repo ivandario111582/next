@@ -28,7 +28,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
-              crearOrganization(),
+              crearOrganization(context),
               SizedBox(height: 10),
               _crearEtiqueta(),
               _crearEncabezado(),

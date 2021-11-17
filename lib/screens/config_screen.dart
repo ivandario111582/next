@@ -207,7 +207,6 @@ class _ConfigScreenState extends State<ConfigScreen> {
     if (mensaje == '') {
       validURL = Uri.parse(sever).isAbsolute;
       if (validURL) {
-        //Config.configura(sever,port,use).then((_) {});
         String cadena = sever + '@' + port + '@' + user;
         widget.storage.writeCounter(cadena);
         Navigator.pushReplacement(

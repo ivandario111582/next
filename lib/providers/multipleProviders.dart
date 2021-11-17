@@ -1,31 +1,37 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
+class MultipleProviders extends ChangeNotifier {
+  String _empresa  ='';
+  String _direccion='';
+  String _telefono ='';
+  String _tocken   ='';
 
-import 'package:http/http.dart' as http;
-import 'dart:async';
-
-import 'package:next_project/model/models.dart';
-import 'package:next_project/services/UrlServices.dart';
-import 'package:next_project/utils/utils.dart';
-
-
-
-class MultipleProviders {
-  
-  Future<List<ClienteDetalle>> getDetalleCliente(String codigo) async {
-    var server=User.server+UrlServices.urlClienteDetalle + User.idEmpresa + '/'+codigo;
-    final url = Uri.parse(server);
-    final response = await http.get(url,headers: {
-      HttpHeaders.authorizationHeader: 'Bearer '+ User.token
-      });
-        final searchResponse = SearchClienteDetailResponse.fromJson( response.body );
-        print(searchResponse.results);
-    return searchResponse.results;
-
-
-
-
+  String get empresa{
+    return this._empresa;
+  }
+  String get direccion{
+    return this._direccion;
+  }
+  String get telefono{
+    return this._telefono;
+  }
+  String get tocken{
+    return this._tocken;
   }
 
-
-
+  set empresa(String empresa){
+    this._empresa=empresa;
+    notifyListeners();
+  }
+    set direccion(String direccion){
+    this._direccion=direccion;
+    notifyListeners();
+  }
+    set telefono(String telefono){
+    this._telefono=telefono;
+    notifyListeners();
+  }
+    set tocken(String tocken){
+    this._tocken=tocken;
+    notifyListeners();
+  }
 }

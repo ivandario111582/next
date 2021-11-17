@@ -26,7 +26,7 @@ class AuthService extends ChangeNotifier {
       Duration(seconds: 5),
       onTimeout: () {
         // Time has run out, do what you wanted to do.
-        return http.Response('Error', 500); // Replace 500 with your http code.
+        return http.Response('Error', 1000); // Replace 500 with your http code.
       },
     );
 

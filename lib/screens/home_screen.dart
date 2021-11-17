@@ -64,7 +64,7 @@ void initState(){
         child: Column(
           children: <Widget>[
             SizedBox( height: 20 ),
-            crearOrganization(),
+            crearOrganization(context),
             SizedBox( height: 30 ),
           ]))),
 

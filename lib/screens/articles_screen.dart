@@ -27,7 +27,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
-              crearOrganization(),
+              crearOrganization(context),
               SizedBox(height: 30),
               _crearEtiqueta(),
               _crearEncabezado(),

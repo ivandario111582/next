@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:next_project/providers/providers.dart';
 import 'package:provider/provider.dart';
 
 import 'package:next_project/providers/login_form_provider.dart';
@@ -31,7 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   SizedBox(height: 30),
                   ChangeNotifierProvider(
-                      create: (_) => LoginFormProvider(), child: LoginForm(storage: CounterStorage()))
+                      create: (_) => LoginFormProvider(),
+                      child: LoginForm(storage: CounterStorage()))
                 ],
               )
             ],
@@ -65,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
   String counter = '0';
   String urlServer = '';
   String portServer = '';
-  String tocken='';
+  String tocken = '';
   TextEditingController _controller = new TextEditingController();
   String user = '';
   @override
@@ -85,12 +87,12 @@ class _LoginFormState extends State<LoginForm> {
           //siginifica que ya ha ingresado antes, divide la cadena recueprada para tomar id del usuario y verificar el estado del usuario
           var arrayData = _dataDisp.split('@');
           setState(() {
-            urlServer = arrayData[0]+':'+arrayData[1];
+            urlServer = arrayData[0] + ':' + arrayData[1];
             user = arrayData[2];
           });
         }
         //llama a la funcion que verifica el estado de usuario y la versión de la app
-          readUsert(user);
+        readUsert(user);
       });
     } catch (ex) {
       print('Something really unknown: $ex');
@@ -165,19 +167,26 @@ class _LoginFormState extends State<LoginForm> {
                           loginForm.isLoading = true;
                           loginForm.email = _controller.text;
                           final String errorMessage = await authService.login(
-                                  user, loginForm.password,urlServer) ??
+                                  user, loginForm.password, urlServer) ??
                               '';
-                          String mensaje='';
+                          String mensaje = '';
                           var arrayData = errorMessage.split('*');
                           tocken = User.token;
+                          final organization = Provider.of<MultipleProviders>(
+                              context,
+                              listen: false);
+                          organization.empresa    = arrayData[1];
+                          organization.direccion  = arrayData[2];
+                          organization.telefono   = arrayData[3];
+                          organization.tocken     = arrayData[4];
                           setState(() {
                             mensaje = arrayData[0];
                             tocken = User.token;
                           });
                           if (mensaje == 'ok') {
-                          setState(() {
-                            tocken = User.token;
-                          });
+                            setState(() {
+                              tocken = User.token;
+                            });
                             //print('deberia ingresar');
                             Navigator.pushReplacement(
                                 context,

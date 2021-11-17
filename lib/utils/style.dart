@@ -13,7 +13,7 @@ class StyleApp{
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {
-                User.logout();
+                User.logout(context);
                 //llamada a la pantalla de inicio
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>CheckAuthScreen(storage: CounterStorage()),
