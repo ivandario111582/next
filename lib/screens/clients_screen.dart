@@ -4,6 +4,7 @@ import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
 import 'package:next_project/search/search.dart';
 import 'package:next_project/providers/providers.dart';
+//import 'package:provider/provider.dart';
 
 class ClientsScreen extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class ClientsScreen extends StatefulWidget {
 class _ClientsScreenState extends State<ClientsScreen> {
   final clientsProvider = new ClientsProvider();
   late List<ClienteDetalle>? clienteDetalles = [];
+  
   String? nombre       = '';
   String? ruc          = '';
   String? saldo        = '';
@@ -33,7 +35,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
               _crearEtiqueta(),
               _crearEncabezado(),
               SizedBox(height: 5),
-              detailsClients(codigo)
+              detailsClients()
             ],
           ),
         ));
@@ -53,7 +55,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
 
   Widget _crearEncabezado() {
     final width = MediaQuery.of(context).size.width * 1;
-    return Container(
+      return Container(
       width: width,
       decoration: BoxDecoration(
         border: Border.all(
@@ -101,7 +103,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
                         postFechados  = arr[4];
                       });
                       clienteDetalles =
-                          await clientsProvider.searchDetail(codigo ?? '');
+                          await clientsProvider.searchDetail(codigo ?? '',context);
                       setState(() {
                         clienteDetalles = clienteDetalles;
                       });
@@ -177,7 +179,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
     );
   }
 
-  detailsClients(String? codigoCliente) {
+  detailsClients() {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         // Data table widget in not scrollable so we have to wrap it in a scroll view when we have a large data set..

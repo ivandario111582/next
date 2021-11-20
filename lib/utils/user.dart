@@ -40,20 +40,7 @@ class User {
   }
 
   static Future<Null> logout(BuildContext context)async {
-    /*userName  = '';
-    direcc    = '';
-    tele      = '';
-    token     = '';
-    server    = '';
-    idEmpresa = '';
-    await Utility.setLocalStorage('userName', '');
-    await Utility.setLocalStorage('direcc', '');
-    await Utility.setLocalStorage('tele', '');
-    await Utility.setLocalStorage('token', '');
-    await Utility.setLocalStorage('server', '');
-    await Utility.setLocalStorage('idEmpresa', '');*/
-
-    final organization = Provider.of<MultipleProviders>(context,listen: false);
+     final organization = Provider.of<MultipleProviders>(context,listen: false);
       organization.empresa    = '';
       organization.direccion  = '';
       organization.telefono   = '';

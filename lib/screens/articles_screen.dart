@@ -97,7 +97,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                         descripcion = arr[1];
                         total       = arr[2];
                       });
-                      articuloDetalle = await articlesProvider.searchDetail(codigo ?? '');
+                      articuloDetalle = await articlesProvider.searchDetail(codigo ?? '',context);
                       setState(() {
                         articuloDetalle = articuloDetalle;
                       });

@@ -40,7 +40,7 @@ class AuthService extends ChangeNotifier {
       if (decodeResp['acceso'] == true) {
         //String nombre= decodeResp['name'] ;
         //almaceno en shared preferences
-          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token'];
+          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer;
           User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
           print('cadena: '+User.userName);
         });
@@ -49,6 +49,7 @@ class AuthService extends ChangeNotifier {
         return 'Usuario o contraseña no Validos';
       }
     }catch(e){
+      print(e.toString());
       return 'El sitio ingresado en configuración no es correcto';
     }
 

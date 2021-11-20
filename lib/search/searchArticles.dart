@@ -49,7 +49,7 @@ String get searchFieldLabel=>'Buscar Articulos';
       return _emptyContainer();
     }
         final articuloProvider = Provider.of<ArticlesProvider>(context, listen: false);
-        articuloProvider.getSuggestionsByQuery( query );
+        articuloProvider.getSuggestionsByQuery( query,context );
 
           return StreamBuilder(
         stream: articuloProvider.suggestionStream,

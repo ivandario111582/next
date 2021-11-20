@@ -49,7 +49,7 @@ String get searchFieldLabel=>'Buscar Cliente';
       return _emptyContainer();
     }
         final moviesProvider = Provider.of<ClientsProvider>(context, listen: false);
-        moviesProvider.getSuggestionsByQuery( query );
+        moviesProvider.getSuggestionsByQuery( query,context);
 
           return StreamBuilder(
         stream: moviesProvider.suggestionStream,

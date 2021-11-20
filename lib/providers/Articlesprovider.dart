@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:next_project/helpers/debouncer.dart';
 import 'package:next_project/model/models.dart';
-import 'package:next_project/utils/utils.dart';
+import 'package:next_project/providers/providers.dart';
+//import 'package:next_project/utils/utils.dart';
 import 'package:next_project/services/UrlServices.dart';
+import 'package:provider/provider.dart';
 
 class ArticlesProvider extends ChangeNotifier {
 
@@ -20,22 +22,21 @@ class ArticlesProvider extends ChangeNotifier {
   void disposeStreams() {
     _suggestionStreamContoller.close();
   }
-  Future<List<Articulo>> searchMovies( String query ) async {
+  Future<List<Articulo>> searchMovies( String query,BuildContext context) async {
+    final organization = Provider.of<MultipleProviders>(context,listen: false);
     var server =
-        User.server + UrlServices.urlArticulos + User.idEmpresa + '/' + query;
+        organization.urlServer + UrlServices.urlArticulos + organization.idEmpresa + '/' + query;
     final url = Uri.parse(server);
     final response = await http.get(url,
-        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
-        print(response.body);
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + organization.tocken});
     final searchResponse = SearchArticuloResponse.fromJson(response.body);
-    //print(searchResponse.results);
     return searchResponse.results;
   }
 
-  void getSuggestionsByQuery( String searchTerm ) {
+  void getSuggestionsByQuery( String searchTerm, BuildContext context ) {
     debouncer.value = '';
     debouncer.onValue = ( value ) async {
-      final results = await this.searchMovies(value);
+      final results = await this.searchMovies(value,context);
       this._suggestionStreamContoller.add( results );
     };
     final timer = Timer.periodic(Duration(milliseconds: 300), ( _ ) { 
@@ -43,15 +44,16 @@ class ArticlesProvider extends ChangeNotifier {
     });
     Future.delayed(Duration( milliseconds: 301)).then(( _ ) => timer.cancel());
   }
-  Future<List<ArticuloDetalle>> searchDetail(String query) async {
-    var server = User.server +
+  Future<List<ArticuloDetalle>> searchDetail(String query,BuildContext context ) async {
+    final organization = Provider.of<MultipleProviders>(context,listen: false);
+    var server = organization.urlServer +
         UrlServices.urlArticulosDetalle +
-        User.idEmpresa +
+        organization.idEmpresa +
         '/' +
         query;
     final url = Uri.parse(server);
     final response = await http.get(url,
-        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + User.token});
+        headers: {HttpHeaders.authorizationHeader: 'Bearer ' + organization.tocken});
     final resp = SearchArticuloDetailResponse.fromJson(response.body);
       print (response.body);
         return resp.results.toList();

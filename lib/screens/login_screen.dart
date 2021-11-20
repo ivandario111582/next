@@ -170,19 +170,23 @@ class _LoginFormState extends State<LoginForm> {
                                   user, loginForm.password, urlServer) ??
                               '';
                           String mensaje = '';
-                          var arrayData = errorMessage.split('*');
-                          tocken = User.token;
-                          final organization = Provider.of<MultipleProviders>(
-                              context,
-                              listen: false);
-                          organization.empresa    = arrayData[1];
-                          organization.direccion  = arrayData[2];
-                          organization.telefono   = arrayData[3];
-                          organization.tocken     = arrayData[4];
-                          setState(() {
-                            mensaje = arrayData[0];
+                          if(errorMessage!='Usuario o contraseña no Validos' && errorMessage!='El servidor ingresado no responde' && errorMessage!='El sitio ingresado en configuración no es correcto'){
+                            var arrayData = errorMessage.split('*');
                             tocken = User.token;
-                          });
+                            final organization = Provider.of<MultipleProviders>(
+                                context,
+                                listen: false);
+                            organization.empresa    = arrayData[1];
+                            organization.direccion  = arrayData[2];
+                            organization.telefono   = arrayData[3];
+                            organization.tocken     = arrayData[4];
+                            organization.idEmpresa  = arrayData[5];
+                            organization.urlServer  = arrayData[6];
+                            setState(() {
+                              mensaje = arrayData[0];
+                              tocken = User.token;
+                            });
+                          }
                           if (mensaje == 'ok') {
                             setState(() {
                               tocken = User.token;
