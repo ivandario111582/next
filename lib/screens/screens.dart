@@ -7,3 +7,4 @@ export 'package:next_project/screens/clients_screen.dart';
 export 'package:next_project/screens/articles_screen.dart';
 export 'package:next_project/screens/reports_screen.dart';
 export 'package:next_project/screens/config_screen.dart';
+export 'package:next_project/screens/business_screen.dart';

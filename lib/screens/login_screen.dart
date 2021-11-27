@@ -50,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ConfigScreen(storage: CounterStorage()),
                     transitionDuration: Duration(seconds: 0)));
           },
-        ));
+        )
+      );
   }
 }
 
@@ -95,8 +96,7 @@ class _LoginFormState extends State<LoginForm> {
         readUsert(user);
       });
     } catch (ex) {
-      print('Something really unknown: $ex');
-    }
+      }
   }
 
   @override
@@ -191,7 +191,6 @@ class _LoginFormState extends State<LoginForm> {
                             setState(() {
                               tocken = User.token;
                             });
-                            //print('deberia ingresar');
                             Navigator.pushReplacement(
                                 context,
                                 PageRouteBuilder(

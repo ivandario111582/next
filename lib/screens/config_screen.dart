@@ -54,7 +54,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
         readUsert();
       });
     } catch (ex) {
-      print('Something really unknown: $ex');
+      
     }
   }
 

@@ -10,6 +10,16 @@ class StyleApp{
           backgroundColor: Color(Constants.colorBlue),
           title: new Text(Constants.tituloApp),
           actions: <Widget>[
+            
+          IconButton(
+            icon: Icon(Icons.autorenew_sharp),
+            onPressed: () {
+                Navigator.pushReplacement(context, PageRouteBuilder(
+                  pageBuilder: (_, __, ___)=>BusinessScreen(),
+                  transitionDuration: Duration( seconds: 0)
+                ));
+            },
+          ),
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {

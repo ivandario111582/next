@@ -8,3 +8,4 @@ export 'package:next_project/model/clienteDetalle.dart';
 export 'package:next_project/model/searchClienteDetail.dart';
 export 'package:next_project/model/articuloDetalle.dart';
 export 'package:next_project/model/SearchArticuloDetail.dart';
+export 'package:next_project/model/business.dart';

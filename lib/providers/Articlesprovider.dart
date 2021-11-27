@@ -55,7 +55,6 @@ class ArticlesProvider extends ChangeNotifier {
     final response = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: 'Bearer ' + organization.tocken});
     final resp = SearchArticuloDetailResponse.fromJson(response.body);
-      print (response.body);
         return resp.results.toList();
   }
 

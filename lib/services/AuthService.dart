@@ -26,30 +26,27 @@ class AuthService extends ChangeNotifier {
       Duration(seconds: 5),
       onTimeout: () {
         // Time has run out, do what you wanted to do.
-        return http.Response('Error', 1000); // Replace 500 with your http code.
+        return http.Response('Error', 2000); // Replace 500 with your http code.
       },
     );
 
-//    print(resp.body);
     if(resp.body=='Error'){
       return 'El servidor ingresado no responde';
     }
     try{
       final Map<String, dynamic> decodeResp = json.decode(resp.body);
+      print(resp.body);
       String cadena="";
       if (decodeResp['acceso'] == true) {
-        //String nombre= decodeResp['name'] ;
         //almaceno en shared preferences
           cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer;
           User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
-          print('cadena: '+User.userName);
         });
         return cadena;
       } else {
         return 'Usuario o contraseña no Validos';
       }
     }catch(e){
-      print(e.toString());
       return 'El sitio ingresado en configuración no es correcto';
     }
 

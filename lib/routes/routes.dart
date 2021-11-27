@@ -12,5 +12,6 @@ Map<String, WidgetBuilder> getAplicationRoutes() {
         'articlesForm'  : ( _ ) => ArticleScreen(),
         'reportForm'    : ( _ ) => ReportsScreen(),
         'configForm'    : ( _ ) => ConfigScreen(storage: CounterStorage()),
+        'business'    : ( _ ) => BusinessScreen(),
   };
 }
