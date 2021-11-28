@@ -1,25 +1,23 @@
-class BusinessS {
-  List<Business> items = [];
-  BusinessS();
-  BusinessS.fromJsonList(List<dynamic> jsonList) {
-    //if (jsonList == null) return;
 
-    for (var item in jsonList) {
-      final church = new Business.fromJsonMap(item);
-      items.add(church);
-    }
-  }
-}
-
+import 'dart:convert';
 class Business {
-  String ? codigo;
-  String ? nombre;
-  Business({
-    this.codigo,
-    this.nombre,
-  });
-  Business.fromJsonMap(Map<String, dynamic> json) {
-    codigo = json['codigo'];
-    nombre = json['nombre'];
+    Business({
+        required this.codigo,
+        required this.nombre,
+    });
+
+    int ? codigo;
+    String ? nombre;
+    
+    factory Business.fromJson(String str) => Business.fromMap(json.decode(str));
+
+    factory Business.fromMap(Map<String, dynamic> json) => Business(
+        codigo  : json["codigo"],
+        nombre  : json["nombre"],
+        
+    );
+      @override
+  String toString() {
+    return '$codigo'+'---'+'$nombre';
   }
 }

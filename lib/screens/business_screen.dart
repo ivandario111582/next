@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
-
+import 'package:next_project/providers/providers.dart';
 
   class BusinessScreen extends StatefulWidget {
   @override
@@ -10,13 +9,11 @@ import 'package:next_project/widgets/widgets.dart';
 }
 
 class _BusinessScreenState extends State<BusinessScreen> {
+  final businessProvider = new BusinessProvider();
   @override
 void initState(){
   super.initState();
-  SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-  ]);
+
 }
 
 
@@ -49,23 +46,33 @@ void initState(){
             SizedBox( height: 20 ),
             crearOrganization(context),
             SizedBox( height: 30 ),
+            _swiperMinistery()
           ]))),
 
      ]),
       )
    ));
   }
+Widget _swiperMinistery() {
+    return FutureBuilder(
+        //llamo los datos del provider
+        future: businessProvider.getListBusiness(context),
+        //cargo los datos del future el la variable snapshot
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            //envio cada item del listado para que se forme un objeto en este caso un cart
+            return BusinessCarousel(businessS: snapshot.data??[]);
+          } else {
+            return Container(
+              height: 400.0,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
+  }
 
-  @override
-dispose(){
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  super.dispose();
-}
 }
 
 

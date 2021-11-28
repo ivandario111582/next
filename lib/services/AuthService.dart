@@ -23,7 +23,7 @@ class AuthService extends ChangeNotifier {
       body:jsonEncode({"userAccount": email, "userPassword":password}),
       headers: {'Content-Type': 'application/json'},
     ).timeout(
-      Duration(seconds: 5),
+      Duration(seconds: 30),
       onTimeout: () {
         // Time has run out, do what you wanted to do.
         return http.Response('Error', 2000); // Replace 500 with your http code.
