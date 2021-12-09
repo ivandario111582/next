@@ -20,7 +20,7 @@ class BusinessCarousel extends StatelessWidget {
           return GestureDetector(
               onTap: () {
                 print(businessS[index].codigo);
-                cambiarEmpresa(context,businessS[index].nombre,businessS[index].codigo);
+                cambiarEmpresa(context,businessS[index].nombre,businessS[index].codigo,businessS[index].direcc,businessS[index].tele);
                 Navigator.pushReplacement(context, PageRouteBuilder(
                   pageBuilder: (_, __, ___)=>HomeScreen(),
                   transitionDuration: Duration( seconds: 0)
@@ -75,9 +75,11 @@ class BusinessCarousel extends StatelessWidget {
       ),
     );
   }
-  cambiarEmpresa(BuildContext context,String nombre,int id){
+  cambiarEmpresa(BuildContext context,String nombre,int id,String direccion,String telefono){
     final organization = Provider.of<MultipleProviders>(context,listen: false);
     organization.empresa    = nombre;
     organization.idEmpresa  = id.toString();
+    organization.direccion  = direccion;
+    organization.telefono   = telefono;
   }
 }

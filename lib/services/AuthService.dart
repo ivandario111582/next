@@ -35,7 +35,6 @@ class AuthService extends ChangeNotifier {
     }
     try{
       final Map<String, dynamic> decodeResp = json.decode(resp.body);
-      print(resp.body);
       String cadena="";
       if (decodeResp['acceso'] == true) {
         //almaceno en shared preferences

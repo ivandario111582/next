@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.next_project">
+    package="ec.dts.next_project">
    <application
         android:label="Next móvil"
         android:icon="@mipmap/launcher_icon">

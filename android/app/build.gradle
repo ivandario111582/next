@@ -40,11 +40,11 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.next_project"
+        applicationId "ec.dts.next_project"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.0.1"
     }
 
 signingConfigs {
