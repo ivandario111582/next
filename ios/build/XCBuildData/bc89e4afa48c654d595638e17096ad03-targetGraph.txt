@@ -1,0 +1,16 @@
+Target dependency graph (6 targets)
+Flutter in Pods, no dependencies
+Toast in Pods, no dependencies
+fluttertoast in Pods, depends on:
+Flutter in Pods (explicit)
+Toast in Pods (explicit)
+path_provider in Pods, depends on:
+Flutter in Pods (explicit)
+shared_preferences in Pods, depends on:
+Flutter in Pods (explicit)
+Pods-Runner in Pods, depends on:
+Flutter in Pods (explicit)
+Toast in Pods (explicit)
+fluttertoast in Pods (explicit)
+path_provider in Pods (explicit)
+shared_preferences in Pods (explicit)
