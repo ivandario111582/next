@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:next_project/utils/utils.dart';
@@ -97,7 +99,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
         child: TextFormField(
           controller: _controllerServer,
           autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.url,
           decoration: InputDecorations.authInputDecoration(
               hintText: 'IP servidor / Dominio',
               prefixIcon: Icons.settings_input_antenna),
@@ -118,7 +120,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
         child: TextFormField(
           controller: _controllerPort,
           autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.number,
           decoration: InputDecorations.authInputDecoration(
               hintText: 'Puerto', prefixIcon: Icons.settings_input_composite),
           onChanged: (valorPort) {
@@ -138,7 +140,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
         child: TextFormField(
           controller: _controller,
           autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.text,
           decoration: InputDecorations.authInputDecoration(
               hintText: 'Usuario', prefixIcon: Icons.account_circle),
           onChanged: (valorUser) {

@@ -7,11 +7,12 @@ Map<String, WidgetBuilder> getAplicationRoutes() {
         'login'         : ( _ ) => LoginScreen(),
         'home'          : ( _ ) => HomeScreen(),
         'checking'      : ( _ ) => CheckAuthScreen(storage: CounterStorage()),
-        'orderForm'     : ( _ ) => OrderScreen(),
+  //      'orderForm'     : ( _ ) => OrderScreen(),
         'clientForm'    : ( _ ) => ClientsScreen(),
         'articlesForm'  : ( _ ) => ArticleScreen(),
         'reportForm'    : ( _ ) => ReportsScreen(),
         'configForm'    : ( _ ) => ConfigScreen(storage: CounterStorage()),
-        'business'    : ( _ ) => BusinessScreen(),
+        'business'      : ( _ ) => BusinessScreen(),
+        'order'         : ( _ ) => OrderScreen(),
   };
 }

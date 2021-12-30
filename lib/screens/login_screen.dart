@@ -182,6 +182,8 @@ class _LoginFormState extends State<LoginForm> {
                             organization.tocken     = arrayData[4];
                             organization.idEmpresa  = arrayData[5];
                             organization.urlServer  = arrayData[6];
+                            organization.cambiar    = arrayData[7];
+                            organization.aprobar    = arrayData[8];
                             setState(() {
                               mensaje = arrayData[0];
                               tocken = User.token;

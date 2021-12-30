@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 class MultipleProviders extends ChangeNotifier {
-  String _empresa  ='';
-  String _direccion='';
-  String _telefono ='';
-  String _tocken   ='';
+  String _empresa     ='';
+  String _direccion   ='';
+  String _telefono    ='';
+  String _tocken      ='';
   String _idEmpresa   ='';
   String _urlServer   ='';
+  String _cambiar     ='';
+  String _aprobar     ='';
   String get empresa{
     return this._empresa;
   }
@@ -23,6 +25,12 @@ class MultipleProviders extends ChangeNotifier {
   }
   String get urlServer{
     return this._urlServer;
+  }
+  String get cambiar{
+    return this._cambiar;
+  }
+  String get aprobar{
+    return this._aprobar;
   }
   set empresa(String empresa){
     this._empresa=empresa;
@@ -46,6 +54,14 @@ class MultipleProviders extends ChangeNotifier {
   }
     set urlServer(String urlServer){
     this._urlServer=urlServer;
+    notifyListeners();
+  }
+    set cambiar(String cambiar){
+    this._cambiar=cambiar;
+    notifyListeners();
+  }
+    set aprobar(String aprobar){
+    this._aprobar=aprobar;
     notifyListeners();
   }
 }

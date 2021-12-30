@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:next_project/providers/providers.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 
   class HomeScreen extends StatefulWidget {
@@ -22,25 +24,37 @@ void initState(){
 
   @override
   Widget build(BuildContext context) {
-  List data=[
-    /*{
-  "imagen"  : "assets/orders.png",
-  "title"   : "Pedidos",
-  "form"    : "orderForm"
-},*/ {
-  "imagen"  : "assets/clients.png",
-  "title"   : "Clientes",
-  "form"    : "clientForm"
-},{
-  "imagen"  : "assets/articles.png",
-  "title"   : "Articulos",
-  "form"    : "articlesForm"
-}/*, {
-  "imagen"  : "assets/reports.png",
-  "title"   : "Reportes",
-  "form"    : "reportForm"
-}*/];
- // final authService=Provider.of<AuthService>(context, listen: false);
+    final organization=Provider.of<MultipleProviders>(context);
+    List data=[];
+    if(organization.aprobar=='1'){
+       data=[
+          {
+            "imagen"  : "assets/clients.png",
+            "title"   : "Clientes",
+            "form"    : "clientForm"
+          },{
+            "imagen"  : "assets/articles.png",
+            "title"   : "Articulos",
+            "form"    : "articlesForm"
+          },{
+            "imagen"  : "assets/orders.png",
+            "title"   : "Pedidos",
+            "form"    : "order"
+          }];
+      }else{
+           data=[
+          {
+            "imagen"  : "assets/clients.png",
+            "title"   : "Clientes",
+            "form"    : "clientForm"
+          },{
+            "imagen"  : "assets/articles.png",
+            "title"   : "Articulos",
+            "form"    : "articlesForm"
+          }];
+      }
+
+ 
     return Scaffold(
       appBar:StyleApp.getAppBarSimple(context),  
       body:

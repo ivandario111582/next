@@ -10,3 +10,5 @@ export 'package:next_project/model/articuloDetalle.dart';
 export 'package:next_project/model/SearchArticuloDetail.dart';
 export 'package:next_project/model/business.dart';
 export 'package:next_project/model/SearchBusiness.dart';
+export 'package:next_project/model/order.dart';
+export 'package:next_project/model/SearchOrder.dart';
