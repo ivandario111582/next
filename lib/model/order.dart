@@ -25,13 +25,13 @@ class Order {
 
     factory Order.fromMap(Map<String, dynamic> json) => Order(
         codigo        : json["codigo"],
-        nombre        : json["nombre"],
+        nombre        : json["nombre"].trim(),
         cupo          : json["cupo"],
         utilizado     : json["utilizado"].toDouble(),
         diferencia    : json["diferencia"].toDouble(),
         valorPedido   : json["valorPedido"].toDouble(),
         numeroPedido  : json["numeroPedido"],
-        nombreVendedor: json["nombreVendedor"],
+        nombreVendedor: json["nombreVendedor"].trim(),
     );
      /* @override
   String toString() {

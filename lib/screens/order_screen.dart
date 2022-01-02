@@ -11,11 +11,8 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  
   final orderProvider = new OrderProvider();
   late List<ClienteDetalle>? clienteDetalles = [];
-  
-
 
   //para relacionar con la caja de texto
   @override
@@ -23,7 +20,9 @@ class _OrderScreenState extends State<OrderScreen> {
     return Scaffold(
         appBar: StyleApp.getAppBarSimple(context),
         body: PageBackground(
-          child:Column(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
               crearOrganization(context),
@@ -33,7 +32,7 @@ class _OrderScreenState extends State<OrderScreen> {
               SizedBox(height: 5),
               //_contenedorPedidos()
               _swiperMinistery()
-             // detailsClients()
+              // detailsClients()
             ],
           ),
         ));
@@ -50,25 +49,25 @@ class _OrderScreenState extends State<OrderScreen> {
           Text(' PEDIDOS POR AUTORIZAR', style: TextStyle(color: Colors.white)),
         ]));
   }
-  Widget _contenedorPedidos(){
 
+  Widget _contenedorPedidos() {
     return Container(
-      width:MediaQuery.of(context).size.width ,
+      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color:
-                            Color(Constants.colorBlue), //                   <--- border color
-                        width: 1.0,
-                      ),
-                      color: Colors.white,
-                      //borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child:_swiperMinistery() ,
-                    
+      decoration: BoxDecoration(
+        border: Border.all(
+          color:
+              Color(Constants.colorBlue), //                   <--- border color
+          width: 1.0,
+        ),
+        color: Colors.white,
+        //borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: _swiperMinistery(),
     );
   }
-Widget _swiperMinistery() {
+
+  Widget _swiperMinistery() {
     return FutureBuilder(
         //llamo los datos del provider
         future: orderProvider.getListOrders(context),
@@ -76,7 +75,7 @@ Widget _swiperMinistery() {
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           if (snapshot.hasData) {
             //envio cada item del listado para que se forme un objeto en este caso un cart
-            return OrdersCardCarousel(orders: snapshot.data??[]);
+            return OrdersCardCarousel(orders: snapshot.data ?? []);
           } else {
             return Container(
               height: 400.0,
@@ -87,6 +86,4 @@ Widget _swiperMinistery() {
           }
         });
   }
-
-  
 }
