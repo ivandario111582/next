@@ -7,4 +7,5 @@ class UrlServices {
   static String urlLogin            = '/api/login/login';
   static String urlEmpresas         = '/api/admin/empresas/';
   static String urlOrder            = '/api/ventas/PedidosListado/';
+  static String urlAutorizar        = '/api/ventas/PedidosAprobacion/';
 }

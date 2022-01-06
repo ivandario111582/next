@@ -50,8 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ConfigScreen(storage: CounterStorage()),
                     transitionDuration: Duration(seconds: 0)));
           },
-        )
-      );
+        ));
   }
 }
 
@@ -95,8 +94,7 @@ class _LoginFormState extends State<LoginForm> {
         //llama a la funcion que verifica el estado de usuario y la versión de la app
         readUsert(user);
       });
-    } catch (ex) {
-      }
+    } catch (ex) {}
   }
 
   @override
@@ -170,20 +168,26 @@ class _LoginFormState extends State<LoginForm> {
                                   user, loginForm.password, urlServer) ??
                               '';
                           String mensaje = '';
-                          if(errorMessage!='Usuario o contraseña no Validos' && errorMessage!='El servidor ingresado no responde' && errorMessage!='El sitio ingresado en configuración no es correcto'){
+                          if (errorMessage !=
+                                  'Usuario o contraseña no Validos' &&
+                              errorMessage !=
+                                  'El servidor ingresado no responde' &&
+                              errorMessage !=
+                                  'El sitio ingresado en configuración no es correcto') {
                             var arrayData = errorMessage.split('*');
                             tocken = User.token;
                             final organization = Provider.of<MultipleProviders>(
                                 context,
                                 listen: false);
-                            organization.empresa    = arrayData[1];
-                            organization.direccion  = arrayData[2];
-                            organization.telefono   = arrayData[3];
-                            organization.tocken     = arrayData[4];
-                            organization.idEmpresa  = arrayData[5];
-                            organization.urlServer  = arrayData[6];
-                            organization.cambiar    = arrayData[7];
-                            organization.aprobar    = arrayData[8];
+                            organization.empresa = arrayData[1];
+                            organization.direccion = arrayData[2];
+                            organization.telefono = arrayData[3];
+                            organization.tocken = arrayData[4];
+                            organization.idEmpresa = arrayData[5];
+                            organization.urlServer = arrayData[6];
+                            organization.cambiar = arrayData[7];
+                            organization.aprobar = arrayData[8];
+                            organization.codUsu = arrayData[9];
                             setState(() {
                               mensaje = arrayData[0];
                               tocken = User.token;

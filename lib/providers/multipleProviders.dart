@@ -8,6 +8,7 @@ class MultipleProviders extends ChangeNotifier {
   String _urlServer   ='';
   String _cambiar     ='';
   String _aprobar     ='';
+  String _codUsu      ='';
   String get empresa{
     return this._empresa;
   }
@@ -31,6 +32,9 @@ class MultipleProviders extends ChangeNotifier {
   }
   String get aprobar{
     return this._aprobar;
+  }
+ String get codUsu{
+    return this._codUsu;
   }
   set empresa(String empresa){
     this._empresa=empresa;
@@ -64,4 +68,9 @@ class MultipleProviders extends ChangeNotifier {
     this._aprobar=aprobar;
     notifyListeners();
   }
+    set codUsu(String codUsu){
+    this._codUsu=codUsu;
+    notifyListeners();
+  }  
+
 }

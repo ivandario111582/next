@@ -13,6 +13,12 @@ class StyleApp{
           backgroundColor: Color(Constants.colorBlue),
           title: new Text(Constants.tituloApp),
           actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+              }
+            ),
           if (organization.cambiar=='true')
             IconButton(
               icon: Icon(Icons.autorenew_sharp),

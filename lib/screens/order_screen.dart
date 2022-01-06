@@ -28,11 +28,9 @@ class _OrderScreenState extends State<OrderScreen> {
               crearOrganization(context),
               SizedBox(height: 10),
               _crearEtiqueta(),
-              //_crearEncabezado(),
               SizedBox(height: 5),
-              //_contenedorPedidos()
               _swiperMinistery()
-              // detailsClients()
+
             ],
           ),
         ));
@@ -50,22 +48,6 @@ class _OrderScreenState extends State<OrderScreen> {
         ]));
   }
 
-  Widget _contenedorPedidos() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color:
-              Color(Constants.colorBlue), //                   <--- border color
-          width: 1.0,
-        ),
-        color: Colors.white,
-        //borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: _swiperMinistery(),
-    );
-  }
 
   Widget _swiperMinistery() {
     return FutureBuilder(

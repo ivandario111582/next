@@ -38,7 +38,7 @@ class AuthService extends ChangeNotifier {
       String cadena="";
       if (decodeResp['acceso'] == true) {
         //almaceno en shared preferences
-          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer+"*"+decodeResp['empresas'].toString()+"*"+decodeResp['grupo'].toString();
+          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer+"*"+decodeResp['empresas'].toString()+"*"+decodeResp['grupo'].toString()+"*"+decodeResp['codUsu'].toString();
           User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
         });
         return cadena;
