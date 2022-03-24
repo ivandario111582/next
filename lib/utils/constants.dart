@@ -7,7 +7,7 @@ class Constants {
   static String tituloApp         ="Next móvil";
   static int colorBlue            = 0xFF0078bd;
   static int colorOrange          = 0xFFF47B18 ;
-  static int colorGrey            = 0xFFffffff ;
+  static int colorGrey            = 0xFFe4e6e7 ;
   static int colorGreyInf            = 0xFF6e91a4 ;
   static bool simpleHeader        = false;
   static String backGrountImage   = "assets/menuBackground.jpg";

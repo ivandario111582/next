@@ -4,7 +4,7 @@ import 'package:next_project/providers/providers.dart';
 import 'package:next_project/services/services.dart';
 //import 'package:next_project/screens/screens.dart';
 import 'package:next_project/utils/utils.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 class OrdersCardCarousel extends StatelessWidget {
   final List<dynamic> orders;
@@ -18,35 +18,32 @@ class OrdersCardCarousel extends StatelessWidget {
         itemCount: orders.length,
         itemBuilder: (BuildContext context, int index) {
           Order order = orders[index];
+          Color red=Colors.black;
+          if (order.diferencia!<=0)
+            red=Colors.red;
           return GestureDetector(
               onTap: () {
                 print(orders[index].codigo);
                 _showSimpleModalDialog(context, order.nombre.toString(),
                     order.numeroPedido.toString());
-                //cambiarEmpresa(context,businessS[index].nombre,businessS[index].codigo,businessS[index].direcc,businessS[index].tele);
-                /*Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                        pageBuilder: (_, __, ___) => HomeScreen(),
-                        transitionDuration: Duration(seconds: 0)));*/
               },
               child: Stack(
                 children: <Widget>[
                   Container(
-                    // margin:EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                    height: 110.0,
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    height: 85.0,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(
+                      /* border: Border.all(
                         color: Color(Constants
                             .colorBlue), //                   <--- border color
                         width: 1.0,
-                      ),
+                      ),*/
                       color: Color(Constants.colorGrey),
                       //borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -103,14 +100,23 @@ class OrdersCardCarousel extends StatelessWidget {
                                     ]),
                                     Row(children: [
                                       Container(
-                                          width: 150,
-                                          child: Text(
-                                              'Diferencia: ' +
-                                                  order.diferencia.toString(),
+                                          width: 150.0,
+                                          child:Row(children: [ Text(
+                                              'Diferencia: ' ,
                                               style: TextStyle(
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w600,
-                                              ))),
+                                              )
+                                          ),
+                                          Text(
+                                              order.diferencia.toString(),
+                                              style: TextStyle(
+                                                color: red,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w600,
+                                              )
+                                          )])
+                                      ),//fin container principal
                                       Text(
                                           'Valor Pedido: ' +
                                               order.valorPedido.toString(),
@@ -131,15 +137,6 @@ class OrdersCardCarousel extends StatelessWidget {
         },
       ),
     );
-  }
-
-  cambiarEmpresa(BuildContext context, String nombre, int id, String direccion,
-      String telefono) {
-    final organization = Provider.of<MultipleProviders>(context, listen: false);
-    organization.empresa = nombre;
-    organization.idEmpresa = id.toString();
-    organization.direccion = direccion;
-    organization.telefono = telefono;
   }
 
   _showSimpleModalDialog(context, String nombre, String numeroPedido) {
@@ -180,17 +177,24 @@ class OrdersCardCarousel extends StatelessWidget {
                                 textStyle: MaterialStateProperty.all(
                                     TextStyle(fontSize: 14))),
                             onPressed: () async {
-                              var coment = comentario.text.trim();
-                              String respuesta = await orderProvider
-                                  .approveOrder(context, coment, numeroPedido);
-                              if (respuesta == 'TRUE') {
-                                Navigator.pop(context, true);
-                                NotificationsService.showSnackBar('La actualización fue con éxito');
-                                Navigator.of(context).pushNamedAndRemoveUntil('order', (Route<dynamic> route) => false);
-                              } else {
+                                                           var coment = comentario.text.trim();
+                              if(coment!=''){
+                                String respuesta = await orderProvider
+                                    .approveOrder(context, coment, numeroPedido);
+                                if (respuesta == 'TRUE') {
+                                  Navigator.pop(context, true);
+                                  NotificationsService.showSnackBar(
+                                      'La autorización se realizó con éxito');
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      'order', (Route<dynamic> route) => false);
+                                } else {
+                                  NotificationsService.showSnackBar(
+                                      'Se produjo un error al autorizar el pedido');
+                                  Navigator.pop(context, false);
+                                }
+                              }else{
                                 NotificationsService.showSnackBar(
-                                    'Se produjo un error al actualizar el estado del pedido');
-                                Navigator.pop(context, false);
+                                      'Es necesario escribir un comentario');
                               }
                             },
                             child: const Text('Autorizar Pedido'),

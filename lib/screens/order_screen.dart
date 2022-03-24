@@ -25,6 +25,7 @@ class _OrderScreenState extends State<OrderScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             //padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
+              SizedBox(height: 20),
               crearOrganization(context),
               SizedBox(height: 10),
               _crearEtiqueta(),
@@ -38,13 +39,14 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget _crearEtiqueta() {
     return Container(
+        margin:EdgeInsets.symmetric(horizontal: 10.0),
         padding: EdgeInsets.all(5.0),
-        width: 200,
+        //width: 200,
         decoration: new BoxDecoration(
           color: Color(Constants.colorGreyInf),
         ),
         child: Row(children: <Widget>[
-          Text(' PEDIDOS POR AUTORIZAR', style: TextStyle(color: Colors.white)),
+          Text(' Pedidos por Autorizar', style: TextStyle(color: Colors.white)),
         ]));
   }
 
