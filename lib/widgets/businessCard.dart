@@ -30,7 +30,7 @@ class BusinessCarousel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin:EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                    height: 80.0,
+                    height: 100.0,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -42,7 +42,7 @@ class BusinessCarousel extends StatelessWidget {
                       //borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(100.0, 20.0, 20.0, 20.0),
+                      padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 20.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,6 +58,7 @@ class BusinessCarousel extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w600,
+                                    color: Color(Constants.colorBlue)
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
@@ -65,6 +66,24 @@ class BusinessCarousel extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Text(
+                                 'Dirección : '+ business.direcc.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                          Text(
+                                 'Teléfono : '+ business.tele.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                )                                
                         ],
                       ),
                     ),

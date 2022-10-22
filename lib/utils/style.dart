@@ -33,11 +33,10 @@ class StyleApp{
               icon: Icon(Icons.exit_to_app),
               onPressed: () {
                 User.logout(context);
-                //llamada a la pantalla de inicio
-                Navigator.pushReplacement(context, PageRouteBuilder(
-                  pageBuilder: (_, __, ___)=>CheckAuthScreen(storage: CounterStorage()),
-                  transitionDuration: Duration( seconds: 0)
-                ));
+                Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
+                pageBuilder: (_, __, ___)=>LoginScreen(),
+                            transitionDuration: Duration( seconds: 0)
+                          ), (route) => false);
               },
             ),
         ]
@@ -47,7 +46,7 @@ class StyleApp{
     static getStyleTitle(double fontSize){
     return TextStyle(
       fontSize: fontSize,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.bold, 
       //fontStyle: FontStyle.normal,
       fontStyle: FontStyle.normal,
       color: Color(Constants.colorBlue)
@@ -59,6 +58,22 @@ class StyleApp{
       fontWeight: FontWeight.bold,
       //fontStyle: FontStyle.normal,
       fontStyle: FontStyle.normal,
+    );
+  }
+    static getStyleWarning(double fontSize){
+    return TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.bold,
+      //fontStyle: FontStyle.normal,
+      fontStyle: FontStyle.normal,
+      color: Colors.red
+    );
+  }
+    static getStyleBlack(double fontSize){
+    return TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+      color: Colors.black
     );
   }
 }

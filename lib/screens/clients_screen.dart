@@ -55,6 +55,7 @@ class _ClientsScreenState extends State<ClientsScreen> {
 
   Widget _crearEncabezado() {
     final width = MediaQuery.of(context).size.width * 1;
+    final Responsive responsive = Responsive.of(context);
       return Container(
       width: width,
       decoration: BoxDecoration(
@@ -70,16 +71,16 @@ class _ClientsScreenState extends State<ClientsScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' Código',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 37,
+              Container(
+                width: responsive.wp(25),
+                child: Text(' Código',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))
               ),
               Container(
-                width: 150,
+                width: responsive.wp(50),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(codigo ?? '',
@@ -111,19 +112,20 @@ class _ClientsScreenState extends State<ClientsScreen> {
                   }),
             ],
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 5),
           Row(
             children: [
+              Container(
+                width: responsive.wp(25),
+                child:
               Text(' Nombre',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 32,
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))
               ),
               Container(
-                width: 250,
+                width: responsive.wp(64),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(nombre ?? '',
@@ -135,16 +137,16 @@ class _ClientsScreenState extends State<ClientsScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' Chq. Postf.',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 10,
-              ),
               Container(
-                width: 150,
+                width: responsive.wp(25),
+                child:
+              Text(' Chq. Postf.',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))),
+              Container(
+                width: responsive.wp(64),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(postFechados ?? '',
@@ -156,16 +158,16 @@ class _ClientsScreenState extends State<ClientsScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' Saldo',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 47,
-              ),
               Container(
-                width: 150,
+                width: responsive.wp(25),
+                child:              
+              Text(' Saldo',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))),
+              Container(
+                width: responsive.wp(64),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(saldo ?? '',

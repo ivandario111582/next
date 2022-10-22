@@ -10,11 +10,12 @@ Widget crearOrganization(BuildContext context ) {
     SizedBox(height: 2),
     Text(organization.empresa,
         textAlign: TextAlign.center, style: StyleApp.getStyleTitle(20)),
-    
+    /*
     Text(organization.direccion,
         textAlign: TextAlign.center, style: StyleApp.getStyleTitle(12)),
     
     Text(organization.telefono,
         textAlign: TextAlign.center, style: StyleApp.getStyleTitle(12)),
+    */
   ])));
 }

@@ -45,7 +45,7 @@ void initState(){
           children: <Widget>[
             SizedBox( height: 20 ),
             crearOrganization(context),
-            SizedBox( height: 30 ),
+            SizedBox( height: 10 ),
             _swiperMinistery()
           ]))),
 

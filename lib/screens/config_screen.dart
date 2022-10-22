@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:next_project/utils/utils.dart';
 import 'package:next_project/ui/input_decorations.dart';
 import 'package:next_project/widgets/widgets.dart';
-import 'package:next_project/services/services.dart';
+//import 'package:next_project/services/services.dart';
 import 'package:next_project/screens/screens.dart';
 
 class ConfigScreen extends StatefulWidget {
@@ -27,6 +27,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
   String _dataDisp = '';
   String counter = '0';
   String chekUsuario = '0';
+  String use = '';
   @override
   void initState() {
     super.initState();
@@ -182,7 +183,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
   void setConfig(BuildContext context) {
     String sever = '';
     String port = '';
-    String use = '';
+    //String use = '';
     String mensaje = '';
     if (urlServer == '' && Config.urlServer != '') {
       sever = Config.urlServer;
@@ -218,10 +219,12 @@ class _ConfigScreenState extends State<ConfigScreen> {
                     CheckAuthScreen(storage: CounterStorage()),
                 transitionDuration: Duration(seconds: 0)));
       } else {
-        NotificationsService.showSnackBar('La dirección URL no es válida');
+        //NotificationsService.showSnackBar('La dirección URL no es válida');
+        Utility.showToast('La dirección URL no es válida');
       }
     } else {
-      NotificationsService.showSnackBar(mensaje);
+      //NotificationsService.showSnackBar(mensaje);
+      Utility.showToast(mensaje);
     }
   }
 }

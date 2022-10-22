@@ -11,6 +11,7 @@ class ArticleScreen extends StatefulWidget {
 }
 
 class _ArticleScreenState extends State<ArticleScreen> {
+  
   final articlesProvider = new ArticlesProvider();
   late List<ArticuloDetalle>? articuloDetalle = [];
   String? codigo = '';
@@ -28,7 +29,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: <Widget>[
               crearOrganization(context),
-              SizedBox(height: 30),
+              SizedBox(height: 10),
               _crearEtiqueta(),
               _crearEncabezado(),
               SizedBox(height: 5),
@@ -52,6 +53,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget _crearEncabezado() {
     final width = MediaQuery.of(context).size.width * 1;
+    final Responsive responsive = Responsive.of(context);
     return Container(
       width: width,
       decoration: BoxDecoration(
@@ -67,16 +69,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' Código',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 37,
-              ),
               Container(
-                width: 150,
+                width: responsive.wp(25),
+                child:
+              Text('Código',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))),
+
+              Container(
+                width: responsive.wp(50),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(codigo ?? '',
@@ -105,19 +108,19 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   }),
             ],
           ),
-          SizedBox(height: 1),
+         // SizedBox(height: 1),
           Row(
             children: [
-              Text(' Nombre',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 32,
-              ),
               Container(
-                width: 250,
+                width: responsive.wp(25),
+                child:
+              Text('Nombre',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))),
+              Container(
+                width: responsive.wp(64),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(descripcion ?? '',
@@ -129,16 +132,16 @@ class _ArticleScreenState extends State<ArticleScreen> {
           SizedBox(height: 5),
           Row(
             children: [
-              Text(' Total',
-                  textAlign: TextAlign.right,
-                  style: StyleApp.getStyleTitle(15)),
-              SizedBox(
-                width: 52,
-              ),
               Container(
-                width: 150,
+                width: responsive.wp(25),
+                child:
+              Text(' Total',
+                  textAlign: TextAlign.left,
+                  style: StyleApp.getStyleTitle(15))),
+              Container(
+                width: responsive.wp(64),
                 decoration: new BoxDecoration(
-                  color: Color(Constants.colorGrey),
+                  color: Color(Constants.colorWhite),
                 ),
                 padding: EdgeInsets.all(5.0),
                 child: Text(total ?? '',
@@ -159,7 +162,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
         child: SingleChildScrollView(
             child: DataTable(
           decoration: new BoxDecoration(
-            color: Color(Constants.colorGrey),
+            color: Color(Constants.colorWhite),
           ),
           headingRowColor: MaterialStateColor.resolveWith(
               (states) => Color(Constants.colorBlue)),

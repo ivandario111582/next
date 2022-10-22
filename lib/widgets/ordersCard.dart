@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:next_project/model/models.dart';
 import 'package:next_project/providers/providers.dart';
 import 'package:next_project/services/services.dart';
-//import 'package:next_project/screens/screens.dart';
 import 'package:next_project/utils/utils.dart';
-//import 'package:provider/provider.dart';
 
 class OrdersCardCarousel extends StatelessWidget {
   final List<dynamic> orders;
@@ -18,12 +16,11 @@ class OrdersCardCarousel extends StatelessWidget {
         itemCount: orders.length,
         itemBuilder: (BuildContext context, int index) {
           Order order = orders[index];
-          Color red=Colors.black;
-          if (order.diferencia!<=0)
-            red=Colors.red;
+          Color red = Colors.black;
+          if (order.diferencia! <= 0) red = Colors.red;
           return GestureDetector(
               onTap: () {
-                print(orders[index].codigo);
+                //print(orders[index].codigo);
                 _showSimpleModalDialog(context, order.nombre.toString(),
                     order.numeroPedido.toString());
               },
@@ -31,19 +28,13 @@ class OrdersCardCarousel extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    height: 85.0,
+                    //height: 85.0,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      /* border: Border.all(
-                        color: Color(Constants
-                            .colorBlue), //                   <--- border color
-                        width: 1.0,
-                      ),*/
                       color: Color(Constants.colorGrey),
-                      //borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                      padding: EdgeInsets.fromLTRB(10.0, 1.0, 5.0, 1.0),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -101,22 +92,19 @@ class OrdersCardCarousel extends StatelessWidget {
                                     Row(children: [
                                       Container(
                                           width: 150.0,
-                                          child:Row(children: [ Text(
-                                              'Diferencia: ' ,
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w600,
-                                              )
-                                          ),
-                                          Text(
-                                              order.diferencia.toString(),
-                                              style: TextStyle(
-                                                color: red,
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w600,
-                                              )
-                                          )])
-                                      ),//fin container principal
+                                          child: Row(children: [
+                                            Text('Diferencia: ',
+                                                style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w600,
+                                                )),
+                                            Text(order.diferencia.toString(),
+                                                style: TextStyle(
+                                                  color: red,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w600,
+                                                ))
+                                          ])), //fin container principal
                                       Text(
                                           'Valor Pedido: ' +
                                               order.valorPedido.toString(),
@@ -127,6 +115,11 @@ class OrdersCardCarousel extends StatelessWidget {
                                     ]),
                                   ])),
                             ],
+                          ),
+                          Divider(
+                            height: 20,
+                            color: Color(Constants.colorWhite),
+                            thickness: 2,
                           ),
                         ],
                       ),
@@ -144,69 +137,99 @@ class OrdersCardCarousel extends StatelessWidget {
     TextEditingController comentario = new TextEditingController();
     showDialog(
         context: context,
+        barrierDismissible:false,
         builder: (BuildContext context) {
           return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            child: Container(
-              constraints: BoxConstraints(maxHeight: 320),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(nombre.toString(),
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
-                    TextField(
-                      controller: comentario,
-                      maxLines: 8,
-                      decoration: InputDecoration.collapsed(
-                          hintText: "Ingrese comentario para autorizar"),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: Container(
+                  constraints: BoxConstraints(maxHeight: 320),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(Utility.stringCut(nombre.toString()),
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        TextField(
+                          controller: comentario,
+                          maxLines: 8,
+                          decoration: InputDecoration.collapsed(
+                              hintText: "Ingrese comentario para autorizar"),
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Center(
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Color(Constants.colorBlue)),
+                                          textStyle: MaterialStateProperty.all(
+                                              TextStyle(fontSize: 14))),
+                                      onPressed: () async {
+                                        var coment = comentario.text.trim();
+                                        if (coment != '') {
+                                          String respuesta =
+                                              await orderProvider.approveOrder(
+                                                  context,
+                                                  coment,
+                                                  numeroPedido);
+                                          if (respuesta == 'TRUE') {
+                                            Navigator.pop(context, true);
+                                            NotificationsService.showSnackBar(
+                                                'La autorización se realizó con éxito');
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    'order',
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                          } else {
+                                            NotificationsService.showSnackBar(
+                                                'Se produjo un error al autorizar el pedido');
+                                            Navigator.pop(context, false);
+                                          }
+                                        } else {
+                                          NotificationsService.showSnackBar(
+                                              'Es necesario escribir un comentario');
+                                        }
+                                      },
+                                      child: const Text('Aceptar'),
+                                    ),
+                                  ])),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Color(Constants.colorBlue)),
+                                          textStyle: MaterialStateProperty.all(
+                                              TextStyle(fontSize: 14))),
+                                      onPressed: () =>
+                                          Navigator.pop(context, false),
+                                      child: const Text('Cancelar'),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ])
+                      ],
                     ),
-                    Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(Constants.colorBlue)),
-                                textStyle: MaterialStateProperty.all(
-                                    TextStyle(fontSize: 14))),
-                            onPressed: () async {
-                                                           var coment = comentario.text.trim();
-                              if(coment!=''){
-                                String respuesta = await orderProvider
-                                    .approveOrder(context, coment, numeroPedido);
-                                if (respuesta == 'TRUE') {
-                                  Navigator.pop(context, true);
-                                  NotificationsService.showSnackBar(
-                                      'La autorización se realizó con éxito');
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                      'order', (Route<dynamic> route) => false);
-                                } else {
-                                  NotificationsService.showSnackBar(
-                                      'Se produjo un error al autorizar el pedido');
-                                  Navigator.pop(context, false);
-                                }
-                              }else{
-                                NotificationsService.showSnackBar(
-                                      'Es necesario escribir un comentario');
-                              }
-                            },
-                            child: const Text('Autorizar Pedido'),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
+                  )));
         });
   }
 }
