@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:next_project/services/UrlServices.dart';
 import 'package:next_project/utils/utils.dart';
 
@@ -38,7 +37,7 @@ class AuthService extends ChangeNotifier {
       String cadena="";
       if (decodeResp['acceso'] == true) {
         //almaceno en shared preferences
-          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer+"*"+decodeResp['empresas'].toString()+"*"+decodeResp['grupo'].toString()+"*"+decodeResp['codUsu'].toString();
+          cadena="ok*"+decodeResp['name']+"*"+decodeResp['direcc']+"*"+decodeResp['tele']+"*"+decodeResp['token']+"*"+decodeResp['id_Empresa'].toString()+"*"+urlServer+"*"+decodeResp['empresas'].toString()+"*"+decodeResp['grupo'].toString()+"*"+decodeResp['codUsu'].toString()+"*"+decodeResp['codVdd']+"*"+decodeResp['usaOpcAppMovClientes'].toString()+"*"+decodeResp['usaOpcAppMovInventarios'].toString()+"*"+decodeResp['usaOpcAppMovAutorizaciones'].toString()+"*"+decodeResp['usaOpcAppMovRutas'].toString()+"*"+decodeResp['usaOpcAppMovDocumentos'].toString()+"*"+decodeResp['usaOpcAppCobros'].toString()+"*"+decodeResp['usaOpcAppReportes'].toString();
           User.login(decodeResp['name'], decodeResp['direcc'], decodeResp['tele'],decodeResp['token'],urlServer,decodeResp['id_Empresa'].toString()).then((_) { 
         });
         return cadena;
@@ -46,6 +45,7 @@ class AuthService extends ChangeNotifier {
         return 'Usuario o contraseña no Validos';
       }
     }catch(e){
+      print (e.toString());
       return 'El sitio ingresado en configuración no es correcto';
     }
 

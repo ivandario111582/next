@@ -179,15 +179,23 @@ class _LoginFormState extends State<LoginForm> {
                             final organization = Provider.of<MultipleProviders>(
                                 context,
                                 listen: false);
-                            organization.empresa = arrayData[1];
-                            organization.direccion = arrayData[2];
-                            organization.telefono = arrayData[3];
-                            organization.tocken = arrayData[4];
-                            organization.idEmpresa = arrayData[5];
-                            organization.urlServer = arrayData[6];
-                            organization.cambiar = arrayData[7];
-                            organization.aprobar = arrayData[8];
-                            organization.codUsu = arrayData[9];
+                            organization.empresa          = arrayData[1];
+                            organization.direccion        = arrayData[2];
+                            organization.telefono         = arrayData[3];
+                            organization.tocken           = arrayData[4];
+                            organization.idEmpresa        = arrayData[5];
+                            organization.urlServer        = arrayData[6];
+                            organization.cambiar          = arrayData[7];
+                            organization.aprobar          = arrayData[8];
+                            organization.codUsu           = arrayData[9];
+                            organization.codVdd           = arrayData[10];
+                            organization.btoClientes      = arrayData[11];
+                            organization.btoInventarios   = arrayData[12];
+                            organization.btoAutorizaciones= arrayData[13];
+                            organization.btoRutas         = arrayData[14];
+                            organization.btoDocumentos    = arrayData[15];
+                            organization.btoCobros        = arrayData[16];
+                            organization.btoReportes      = arrayData[17];
                             setState(() {
                               mensaje = arrayData[0];
                               tocken = User.token;
@@ -205,7 +213,8 @@ class _LoginFormState extends State<LoginForm> {
                                             storage: CounterStorage()),
                                     transitionDuration: Duration(seconds: 0)));
                           } else {
-                            NotificationsService.showSnackBar(errorMessage);
+                            //NotificationsService.showSnackBar(errorMessage);
+                            Utility.showToast(errorMessage);
                             loginForm.isLoading = false;
                           }
                         }),

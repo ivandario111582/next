@@ -57,5 +57,20 @@ class ArticlesProvider extends ChangeNotifier {
     final resp = SearchArticuloDetailResponse.fromJson(response.body);
         return resp.results.toList();
   }
-
+  Future<List<Articulo>> searchArticle( String query,BuildContext context) async {
+    try{
+      final organization = Provider.of<MultipleProviders>(context,listen: false);
+      var server =
+          organization.urlServer + UrlServices.urlArticulos + organization.idEmpresa + '/' + query;
+      final url = Uri.parse(server);
+      final response = await http.get(url,
+          headers: {HttpHeaders.authorizationHeader: 'Bearer ' + organization.tocken});
+      final searchResponse = SearchArticuloResponse.fromJson(response.body);
+      print(response.body.toString());
+      return searchResponse.results.toList();
+    }catch(e){
+      print(e.toString());
+      return[];
+    }
+  }
 }

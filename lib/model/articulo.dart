@@ -20,7 +20,7 @@ class Articulo {
         descripcion  : json["descripcion"],
         total   : json["total"].toDouble(),
     );
-      @override
+  @override
   String toString() {
     return '$codigo'+'---'+'$descripcion'+'---'+'$total' ;
   }

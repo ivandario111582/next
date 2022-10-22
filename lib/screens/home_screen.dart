@@ -15,34 +15,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final organization = Provider.of<MultipleProviders>(context);
     List data = [];
-    if (organization.aprobar == '1' || organization.aprobar == '2') {
-      data = [
-        {
-          "imagen": "assets/clients.png",
-          "title": "Clientes",
-          "form": "clientForm"
-        },
-        {
-          "imagen": "assets/articles.png",
-          "title": "Articulos",
-          "form": "articlesForm"
-        },
-        {"imagen": "assets/orders.png", "title": "Pedidos", "form": "order"}
-      ];
-    } else {
-      data = [
-        {
-          "imagen": "assets/clients.png",
-          "title": "Clientes",
-          "form": "clientForm"
-        },
-        {
-          "imagen": "assets/articles.png",
-          "title": "Articulos",
-          "form": "articlesForm"
-        }
-      ];
+    if(organization.btoClientes=='true')
+      data.add({"imagen": "assets/clients.png","title": "Clientes","form": "clientForm"});
+    if(organization.btoInventarios=='true')
+      data.add({"imagen": "assets/articles.png","title": "Articulos","form": "articlesForm"});
+    if(organization.btoAutorizaciones=='true'){
+      if (organization.aprobar == '1' || organization.aprobar == '2')
+        data.add({"imagen": "assets/orders.png", "title": "Pedidos", "form": "order"});
     }
+    if(organization.btoDocumentos=='true')
+      data.add({"imagen": "assets/documentostos.png", "title": "Rutas", "form": "routesForm"});
+    if(organization.btoReportes=='true')
+      data.add({"imagen": "assets/reports.png", "title": "Reportes", "form": "reportForm"});
 
     return Scaffold(
         appBar: StyleApp.getAppBarSimple(context),
@@ -96,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.pushNamed(context, option['form']);
                         });
                   }).toList(),
-                )),//fin container
+                )), //fin container
           ]),
         )));
   }

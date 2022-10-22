@@ -22,7 +22,7 @@ class SearchArticuloResponse {
     factory SearchArticuloResponse.fromMap(Map<String, dynamic> json) => SearchArticuloResponse(
         page: json["page"],
         results: List<Articulo>.from(json["results"].map((x) => Articulo.fromMap(x))),
-            totalResults: json["total_results"],
+        totalResults: json["total_results"],
     );
 
 }

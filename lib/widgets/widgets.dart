@@ -6,3 +6,7 @@ export 'package:next_project/widgets/page_background.dart';
 export 'package:next_project/widgets/organization.dart';
 export 'package:next_project/widgets/businessCard.dart';
 export 'package:next_project/widgets/ordersCard.dart';
+export 'package:next_project/widgets/routesCard.dart';
+export 'package:next_project/widgets/clientHeader.dart';
+export 'package:next_project/widgets/articlesCard.dart';
+export 'package:next_project/widgets/documentoEstadoCard.dart';
